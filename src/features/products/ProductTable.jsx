@@ -9,7 +9,7 @@ const Table = styled.div`
 	border: 1px solid var(--color-brand-400);
 	font-size: 1.4rem;
 	background-color: var(--color-brand-200);
-
+	margin-top: var(--margin-top-sm);
 	border-radius: var(--border-radius-lg);
 	overflow: hidden;
 `;
@@ -20,12 +20,12 @@ const TableHeader = styled.header`
 	column-gap: 2.4rem;
 	align-items: center;
 
-	background-color: var(--color-brand-200);
+	background-color: var(--color-black-900);
 	border-bottom: 1px solid var(--color-brand-400);
 	text-transform: uppercase;
 	letter-spacing: 0.4px;
 	font-weight: 600;
-	color: var(--color-black-900);
+	color: var(--color-brand-100);
 	padding: 1.6rem 2.4rem;
 `;
 

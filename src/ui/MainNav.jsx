@@ -12,7 +12,7 @@ const NavList = styled.ul`
 	display: flex;
 	flex-direction: column;
 	gap: 0.8rem;
-	margin-top: 2rem;
+	margin-top: var(--margin-top-sm);
 `;
 
 const StyledNavLink = styled(NavLink)`

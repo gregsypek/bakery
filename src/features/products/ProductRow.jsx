@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { formatCurrency } from "../../utils/helpers";
 
 const TableRow = styled.div`
 	display: grid;
@@ -8,7 +9,7 @@ const TableRow = styled.div`
 	padding: 1.4rem 2.4rem;
 
 	&:not(:last-child) {
-		border-bottom: 1px solid var(--color-grey-100);
+		border-bottom: 1px solid var(--color-brand-700);
 	}
 `;
 
@@ -24,7 +25,7 @@ const Img = styled.img`
 const Product = styled.div`
 	font-size: 1.6rem;
 	font-weight: 600;
-	color: var(--color-grey-600);
+	color: var(--color-black-900);
 `;
 
 const Price = styled.div`
@@ -34,6 +35,10 @@ const Price = styled.div`
 const Discount = styled.div`
 	font-weight: 500;
 	color: var(--color-green-700);
+`;
+const Stock = styled.div`
+	font-weight: 500;
+	color: var(--color-black-900);
 `;
 
 // eslint-disable-next-line react/prop-types
@@ -47,9 +52,10 @@ function ProductRow({ product }) {
 		<TableRow role="role">
 			<Img src={image} />
 			<Product>{name}</Product>
-			<Price>{regularPrice}</Price>
-			<Discount>{discount}</Discount>
-			<Discount>{stockQuantity}</Discount>
+			<Price>{formatCurrency(regularPrice)}</Price>
+			<Discount>{formatCurrency(discount)}</Discount>
+			<Stock>{stockQuantity}</Stock>
+			<button>Delete</button>
 		</TableRow>
 	);
 }
