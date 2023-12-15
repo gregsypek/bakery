@@ -15,21 +15,21 @@ const StyledSidebar = styled.header`
 	grid-row: 1/-1;
 `;
 
-const Frame = styled.div`
-	box-shadow: 0 0 0 2px var(--color-brand-800);
-	border-radius: var(--border-radius-lg);
-	width: 100%;
-	height: 100%;
-	padding: 15px;
-`;
+// const Frame = styled.div`
+// 	box-shadow: 0 0 0 2px var(--color-brand-800);
+// 	border-radius: var(--border-radius-lg);
+// 	width: 100%;
+// 	height: 100%;
+// 	padding: 15px;
+// `;
 
 function Sidebar() {
 	return (
 		<StyledSidebar>
-			<Frame>
-				<Logo />
-				<MainNav />
-			</Frame>
+			{/* <Frame> */}
+			<Logo />
+			<MainNav />
+			{/* </Frame> */}
 		</StyledSidebar>
 	);
 }
