@@ -1,18 +1,18 @@
-import { useEffect } from "react";
-import { getProducts } from "../services/apiProducts";
+import ProductTable from "../features/products/ProductTable";
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
 
 function Products() {
-	useEffect(() => {
-		getProducts().then((data) => console.log("data", data));
-	}, []);
 	return (
-		<div>
-			<span>products</span>
-			<img
-				src="https://qlujsantxvzzmdxlnmjj.supabase.co/storage/v1/object/public/product-images/product-01.png"
-				alt="2"
-			/>
-		</div>
+		<>
+			<Row type="horizontal">
+				<Heading as="h1">All products</Heading>
+				<p>Filter/sort</p>
+			</Row>
+			<Row>
+				<ProductTable />
+			</Row>
+		</>
 	);
 }
 
