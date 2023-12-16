@@ -3,6 +3,7 @@ import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProduct } from "../../services/apiProducts";
 import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
 const TableRow = styled.div`
 	display: grid;
 	grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -61,13 +62,13 @@ function ProductRow({ product }) {
 	const { isLoading: isDeleting, mutate } = useMutation({
 		mutationFn: (id) => deleteProduct(id),
 		onSuccess: () => {
-			alert("Product successfully deleted");
+			toast.success("Product successfully deleted");
 			//invalidateQueries only work on useClient and we have special hook useQueryClient to get one
 			queryProduct.invalidateQueries({
 				queryKey: ["products"],
 			});
 		},
-		onError: (err) => alert(err.message),
+		onError: (err) => toast.error(err.message),
 	});
 
 	return (
