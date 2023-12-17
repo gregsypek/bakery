@@ -6,6 +6,9 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import { createProduct } from "../../services/apiProducts";
 
 const FormRow = styled.div`
 	display: grid;
@@ -44,10 +47,20 @@ const Label = styled.label`
 // `;
 
 function CreateProductForm() {
-	const { register, handleSubmit } = useForm();
+	const queryClient = useQueryClient();
+	const { mutate, isLoading: isCreating } = useMutation({
+		mutationFn: createProduct,
+		onSuccess: () => {
+			toast.success("New product successfully created");
+			queryClient.invalidateQueries({ queryKey: ["products"] });
+			reset();
+		},
+		onError: (err) => toast.error(err.message),
+	});
+	const { register, handleSubmit, reset } = useForm();
 
 	function onSubmit(data) {
-		console.log("🚀 ~ file: CreateProductForm.jsx:50 ~ onSubmit ~ data:", data);
+		mutate(data);
 	}
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
@@ -100,7 +113,7 @@ function CreateProductForm() {
 				<Button variation="empty" type="reset">
 					Cancel
 				</Button>
-				<Button>Edit product</Button>
+				<Button disabled={isCreating}>Add product</Button>
 			</FormRow>
 		</Form>
 	);
