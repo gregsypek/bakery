@@ -7,23 +7,13 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { createEditProduct } from "../../services/apiProducts";
+import { createProduct } from "../../services/apiProducts";
 import FormRow from "../../ui/FormRow";
-import PropTypes from "prop-types";
 
-function CreateProductForm({ productToEdit = {} }) {
-	const { id: editId, ...editValues } = productToEdit;
-	const isEditSession = Boolean(editId);
-
-	const { register, handleSubmit, reset, getValues, formState } = useForm({
-		defaultValues: isEditSession ? editValues : {},
-	});
-	const { errors } = formState;
-
+function CreateProductForm() {
 	const queryClient = useQueryClient();
-
-	const { mutate: createProduct, isLoading: isCreating } = useMutation({
-		mutationFn: createEditProduct,
+	const { mutate, isLoading: isCreating } = useMutation({
+		mutationFn: createProduct,
 		onSuccess: () => {
 			toast.success("New product successfully created");
 			queryClient.invalidateQueries({ queryKey: ["products"] });
@@ -31,26 +21,12 @@ function CreateProductForm({ productToEdit = {} }) {
 		},
 		onError: (err) => toast.error(err.message),
 	});
+	const { register, handleSubmit, reset, getValues, formState } = useForm();
 
-	const { mutate: editProduct, isLoading: isEditing } = useMutation({
-		mutationFn: ({ newProductData, id }) =>
-			createEditProduct(newProductData, id),
-		onSuccess: () => {
-			toast.success("Product successfully edited");
-			queryClient.invalidateQueries({ queryKey: ["products"] });
-			reset();
-		},
-		onError: (err) => toast.error(err.message),
-	});
-
-	const isWorking = isCreating || isEditing;
+	const { errors } = formState;
 
 	function onSubmit(data) {
-		const image = typeof data.image === "string" ? data.image : data.image[0];
-
-		if (isEditSession)
-			editProduct({ newProductData: { ...data, image }, id: editId });
-		else createProduct({ ...data, image: image });
+		mutate({ ...data, image: data.image[0] });
 	}
 
 	function onError(errors) {
@@ -63,7 +39,7 @@ function CreateProductForm({ productToEdit = {} }) {
 				<Input
 					type="text"
 					id="name"
-					disabled={isWorking}
+					disabled={isCreating}
 					{...register("name", {
 						required: "This field is required",
 					})}
@@ -73,7 +49,7 @@ function CreateProductForm({ productToEdit = {} }) {
 				<Input
 					type="number"
 					id="stockQuantity"
-					disabled={isWorking}
+					disabled={isCreating}
 					defaultValue={0}
 					{...register("stockQuantity", { required: "This field is required" })}
 				/>
@@ -82,7 +58,7 @@ function CreateProductForm({ productToEdit = {} }) {
 				<Input
 					type="number"
 					id="regularPrice"
-					disabled={isWorking}
+					disabled={isCreating}
 					{...register("regularPrice", {
 						required: "This field is required",
 						min: {
@@ -97,7 +73,7 @@ function CreateProductForm({ productToEdit = {} }) {
 					type="number"
 					id="discount"
 					defaultValue={0}
-					disabled={isWorking}
+					disabled={isCreating}
 					{...register("discount", {
 						required: "This field is required",
 						validate: (value) =>
@@ -111,7 +87,7 @@ function CreateProductForm({ productToEdit = {} }) {
 				<Textarea
 					type="number"
 					id="description"
-					disabled={isWorking}
+					disabled={isCreating}
 					defaultValue=""
 					{...register("description", {
 						required: "This field is required",
@@ -123,7 +99,7 @@ function CreateProductForm({ productToEdit = {} }) {
 					id="image"
 					accept="image/*"
 					{...register("image", {
-						required: isEditSession ? false : "This field is required",
+						required: "This field is required",
 					})}
 				/>
 			</FormRow>
@@ -133,23 +109,10 @@ function CreateProductForm({ productToEdit = {} }) {
 				<Button variation="empty" type="reset">
 					Cancel
 				</Button>
-				<Button disabled={isCreating}>
-					{isEditSession ? "Edit prodcut" : "Create new product"}
-				</Button>
+				<Button disabled={isCreating}>Add product</Button>
 			</FormRow>
 		</Form>
 	);
 }
-
-CreateProductForm.propTypes = {
-	productToEdit: PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		name: PropTypes.string.isRequired,
-		regularPrice: PropTypes.number.isRequired,
-		image: PropTypes.string,
-		discount: PropTypes.number,
-		stockQuantity: PropTypes.number,
-	}),
-};
 
 export default CreateProductForm;

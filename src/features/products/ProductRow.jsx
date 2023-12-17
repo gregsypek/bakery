@@ -4,6 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProduct } from "../../services/apiProducts";
 import PropTypes from "prop-types";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import CreateProductForm from "./CreateProductForm";
 const TableRow = styled.div`
 	display: grid;
 	grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -46,6 +48,7 @@ const Stock = styled.div`
 
 // eslint-disable-next-line react/prop-types
 function ProductRow({ product }) {
+	const [showForm, setShowForm] = useState(false);
 	console.log("🚀 ~ file: ProductRow.jsx:52 ~ ProductRow ~ product:", product);
 
 	// eslint-disable-next-line react/prop-types
@@ -72,16 +75,22 @@ function ProductRow({ product }) {
 	});
 
 	return (
-		<TableRow role="role">
-			<Img src={image} />
-			<Product>{name}</Product>
-			<Price>{formatCurrency(regularPrice)}</Price>
-			<Discount>{formatCurrency(discount)}</Discount>
-			<Stock>{stockQuantity}</Stock>
-			<button onClick={() => mutate(productId)} disabled={isDeleting}>
-				Delete
-			</button>
-		</TableRow>
+		<>
+			<TableRow role="role">
+				<Img src={image} />
+				<Product>{name}</Product>
+				<Price>{formatCurrency(regularPrice)}</Price>
+				<Discount>{formatCurrency(discount)}</Discount>
+				<Stock>{stockQuantity}</Stock>
+				<div>
+					<button onClick={() => setShowForm((show) => !show)}>Edit</button>
+					<button onClick={() => mutate(productId)} disabled={isDeleting}>
+						Delete
+					</button>
+				</div>
+			</TableRow>
+			{showForm && <CreateProductForm productToEdit={product} />}
+		</>
 	);
 }
 
