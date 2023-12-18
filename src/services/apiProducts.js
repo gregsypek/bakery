@@ -44,6 +44,8 @@ export async function createEditProduct(newProduct, id) {
 
 	//2. Upload image
 
+	if (hasImagePath) return data;
+
 	const { error: storageError } = await supabase.storage
 		.from("product-images")
 		.upload(imageName, newProduct.image);

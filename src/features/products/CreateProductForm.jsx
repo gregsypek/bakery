@@ -7,13 +7,13 @@ import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import PropTypes from "prop-types";
 import { useCreateProduct } from "./useCreateProduct";
-import { useEditProduct } from "./useEditProduct";
+import { useUpdateProduct } from "./useUpdateProduct";
 
 function CreateProductForm({ productToEdit = {} }) {
 	const { isCreating, createProduct } = useCreateProduct();
-	const { isEditing, editProduct } = useEditProduct();
+	const { isUpdating, updateProduct } = useUpdateProduct();
 
-	const isWorking = isCreating || isEditing;
+	const isWorking = isCreating || isUpdating;
 
 	const { id: editId, ...editValues } = productToEdit;
 	const isEditSession = Boolean(editId);
@@ -27,7 +27,7 @@ function CreateProductForm({ productToEdit = {} }) {
 		const image = typeof data.image === "string" ? data.image : data.image[0];
 
 		if (isEditSession)
-			editProduct(
+			updateProduct(
 				{ newProductData: { ...data, image }, id: editId },
 				{
 					onSuccess: (data) => {

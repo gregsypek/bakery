@@ -1,5 +1,14 @@
+import UpdateSettingsForm from "../features/settings/UpdateSettingsForm";
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
+
 function Settings() {
-	return <div>settings</div>;
+	return (
+		<Row>
+			<Heading as="h1"> Update bakery settings</Heading>
+			<UpdateSettingsForm />
+		</Row>
+	);
 }
 
 export default Settings;

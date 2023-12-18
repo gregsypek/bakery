@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import CreateProductForm from "./CreateProductForm";
 import { useDeleteProduct } from "./useDeleteProduct";
+import { useCreateProduct } from "./useCreateProduct";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+
 const TableRow = styled.div`
 	display: grid;
 	grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -44,9 +47,10 @@ const Stock = styled.div`
 	color: var(--color-black-900);
 `;
 
-// eslint-disable-next-line react/prop-types
 function ProductRow({ product }) {
 	const [showForm, setShowForm] = useState(false);
+	const { isDeleting, deleteProduct } = useDeleteProduct();
+	const { isCreating, createProduct } = useCreateProduct();
 
 	// eslint-disable-next-line react/prop-types
 	const {
@@ -58,8 +62,15 @@ function ProductRow({ product }) {
 		stockQuantity,
 	} = product;
 
-	const { isDeleting, deleteProduct } = useDeleteProduct();
-
+	function handleDuplicate() {
+		createProduct({
+			name: `Copy of ${name}`,
+			regularPrice,
+			image,
+			discount,
+			stockQuantity,
+		});
+	}
 	return (
 		<>
 			<TableRow role="role">
@@ -73,12 +84,17 @@ function ProductRow({ product }) {
 				)}
 				<Stock>{stockQuantity}</Stock>
 				<div>
-					<button onClick={() => setShowForm((show) => !show)}>Edit</button>
+					<button onClick={handleDuplicate} disabled={isCreating}>
+						<HiSquare2Stack />{" "}
+					</button>
+					<button onClick={() => setShowForm((show) => !show)}>
+						<HiPencil />
+					</button>
 					<button
 						onClick={() => deleteProduct(productId)}
 						disabled={isDeleting}
 					>
-						Delete
+						<HiTrash />
 					</button>
 				</div>
 			</TableRow>

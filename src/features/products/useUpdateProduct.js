@@ -2,9 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { createEditProduct } from "../../services/apiProducts";
 
-export function useEditProduct() {
+export function useUpdateProduct() {
 	const queryClient = useQueryClient();
-	const { mutate: editProduct, isLoading: isEditing } = useMutation({
+	const { mutate: updateProduct, isLoading: isUpdating } = useMutation({
 		mutationFn: ({ newProductData, id }) =>
 			createEditProduct(newProductData, id),
 		onSuccess: () => {
@@ -14,5 +14,5 @@ export function useEditProduct() {
 		onError: (err) => toast.error(err.message),
 	});
 
-	return { isEditing, editProduct };
+	return { isUpdating, updateProduct };
 }
