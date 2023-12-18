@@ -1,17 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { createEditProduct } from "../../services/apiProducts";
 import FormRow from "../../ui/FormRow";
 import PropTypes from "prop-types";
+import { useCreateProduct } from "./useCreateProduct";
+import { useEditProduct } from "./useEditProduct";
 
 function CreateProductForm({ productToEdit = {} }) {
+	const { isCreating, createProduct } = useCreateProduct();
+	const { isEditing, editProduct } = useEditProduct();
+
+	const isWorking = isCreating || isEditing;
+
 	const { id: editId, ...editValues } = productToEdit;
 	const isEditSession = Boolean(editId);
 
@@ -20,37 +23,27 @@ function CreateProductForm({ productToEdit = {} }) {
 	});
 	const { errors } = formState;
 
-	const queryClient = useQueryClient();
-
-	const { mutate: createProduct, isLoading: isCreating } = useMutation({
-		mutationFn: createEditProduct,
-		onSuccess: () => {
-			toast.success("New product successfully created");
-			queryClient.invalidateQueries({ queryKey: ["products"] });
-			reset();
-		},
-		onError: (err) => toast.error(err.message),
-	});
-
-	const { mutate: editProduct, isLoading: isEditing } = useMutation({
-		mutationFn: ({ newProductData, id }) =>
-			createEditProduct(newProductData, id),
-		onSuccess: () => {
-			toast.success("Product successfully edited");
-			queryClient.invalidateQueries({ queryKey: ["products"] });
-			reset();
-		},
-		onError: (err) => toast.error(err.message),
-	});
-
-	const isWorking = isCreating || isEditing;
-
 	function onSubmit(data) {
 		const image = typeof data.image === "string" ? data.image : data.image[0];
 
 		if (isEditSession)
-			editProduct({ newProductData: { ...data, image }, id: editId });
-		else createProduct({ ...data, image: image });
+			editProduct(
+				{ newProductData: { ...data, image }, id: editId },
+				{
+					onSuccess: (data) => {
+						console.log(data), reset();
+					},
+				}
+			);
+		else
+			createProduct(
+				{ ...data, image: image },
+				{
+					onSuccess: (data) => {
+						console.log(data), reset();
+					},
+				}
+			);
 	}
 
 	function onError(errors) {
