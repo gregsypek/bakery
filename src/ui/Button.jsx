@@ -45,7 +45,7 @@ const variations = {
 		border: 2px solid var(--color-black-900);
 
 		&:hover {
-			background-color: var(--color-black-800);
+			background-color: var(--color-brand-200);
 		}
 	`,
 	danger: css`

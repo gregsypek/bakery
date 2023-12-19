@@ -6,21 +6,23 @@ import ProductTable from "./ProductTable";
 
 function AddProduct() {
 	return (
-		<Modal>
-			<Modal.Open opens="product-form">
-				<Button>Add new product</Button>
-			</Modal.Open>
-			<Modal.Window name="product-form">
-				<CreateProductForm />
-			</Modal.Window>
+		<div>
+			<Modal>
+				<Modal.Open opens="product-form">
+					<Button>Add new product</Button>
+				</Modal.Open>
+				<Modal.Window name="product-form">
+					<CreateProductForm />
+				</Modal.Window>
 
-			<Modal.Open opens="table">
-				<Button>Show table</Button>
-			</Modal.Open>
-			<Modal.Window name="table">
-				<ProductTable />
-			</Modal.Window>
-		</Modal>
+				<Modal.Open opens="table">
+					<Button>Show table</Button>
+				</Modal.Open>
+				<Modal.Window name="table">
+					<ProductTable />
+				</Modal.Window>
+			</Modal>
+		</div>
 	);
 }
 
