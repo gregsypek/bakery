@@ -1,12 +1,9 @@
-import { useState } from "react";
 import ProductTable from "../features/products/ProductTable";
-import Button from "../ui/Button";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
-import CreateProductForm from "../features/products/CreateProductForm";
+import AddProduct from "../features/products/AddProduct";
 
 function Products() {
-	const [showForm, setShowForm] = useState(false);
 	return (
 		<>
 			<Row type="horizontal">
@@ -15,10 +12,7 @@ function Products() {
 			</Row>
 			<Row>
 				<ProductTable />
-				<Button onClick={() => setShowForm((show) => !show)}>
-					Add new product
-				</Button>
-				{showForm && <CreateProductForm />}
+				<AddProduct />
 			</Row>
 		</>
 	);

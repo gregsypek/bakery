@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import { useCreateProduct } from "./useCreateProduct";
 import { useUpdateProduct } from "./useUpdateProduct";
 
-function CreateProductForm({ productToEdit = {} }) {
+function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 	const { isCreating, createProduct } = useCreateProduct();
 	const { isUpdating, updateProduct } = useUpdateProduct();
 
@@ -32,6 +32,7 @@ function CreateProductForm({ productToEdit = {} }) {
 				{
 					onSuccess: (data) => {
 						console.log(data), reset();
+						onCloseModal?.();
 					},
 				}
 			);
@@ -41,6 +42,7 @@ function CreateProductForm({ productToEdit = {} }) {
 				{
 					onSuccess: (data) => {
 						console.log(data), reset();
+						onCloseModal?.();
 					},
 				}
 			);
@@ -51,7 +53,10 @@ function CreateProductForm({ productToEdit = {} }) {
 	}
 
 	return (
-		<Form onSubmit={handleSubmit(onSubmit, onError)}>
+		<Form
+			onSubmit={handleSubmit(onSubmit, onError)}
+			type={onCloseModal ? "modal" : "regular"}
+		>
 			<FormRow label="name" error={errors?.name?.message}>
 				<Input
 					type="text"
@@ -123,11 +128,11 @@ function CreateProductForm({ productToEdit = {} }) {
 
 			<FormRow>
 				{/* type is an HTML attribute! */}
-				<Button variation="empty" type="reset">
+				<Button variation="empty" type="reset" onClick={() => onCloseModal?.()}>
 					Cancel
 				</Button>
 				<Button disabled={isCreating}>
-					{isEditSession ? "Edit prodcut" : "Create new product"}
+					{isEditSession ? "Edit product" : "Create new product"}
 				</Button>
 			</FormRow>
 		</Form>
@@ -143,6 +148,7 @@ CreateProductForm.propTypes = {
 		discount: PropTypes.number,
 		stockQuantity: PropTypes.number,
 	}),
+	onCloseModal: PropTypes.func,
 };
 
 export default CreateProductForm;
