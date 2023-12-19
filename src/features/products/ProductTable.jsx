@@ -18,9 +18,10 @@ function ProductTable() {
 				<div>Discount</div>
 				<div></div>
 			</Table.Header>
-			{products.map((product) => (
-				<ProductRow product={product} key={product.id} />
-			))}
+			<Table.Body
+				data={products}
+				render={(product) => <ProductRow product={product} key={product.id} />}
+			/>
 		</Table>
 	);
 }

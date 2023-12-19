@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import Empty from "./Empty";
 
 const StyledTable = styled.div`
 	border: 1px solid var(--color-brand-400);
@@ -30,9 +31,9 @@ const StyledHeader = styled(CommonRow)`
 	color: var(--color-brand-100);
 `;
 
-// const StyledBody = styled.section`
-// 	margin: 0.4rem 0;
-// `;
+const StyledBody = styled.section`
+	margin: 0.4rem 0;
+`;
 
 const StyledRow = styled(CommonRow)`
 	padding: 1.2rem 2.4rem;
@@ -85,8 +86,9 @@ function Row({ children }) {
 		</StyledRow>
 	);
 }
-function Body({ children }) {
-	return <div>{children}</div>;
+function Body({ data, render }) {
+	if (!data.length) return <Empty>No data to show</Empty>;
+	return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
 Table.Header = Header;
@@ -105,6 +107,7 @@ Row.propTypes = {
 	children: PropTypes.node,
 };
 Body.propTypes = {
-	children: PropTypes.node,
+	data: PropTypes.node,
+	render: PropTypes.func,
 };
 export default Table;
