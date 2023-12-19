@@ -7,18 +7,7 @@ import { useCreateProduct } from "./useCreateProduct";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
-
-const TableRow = styled.div`
-	display: grid;
-	grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-	column-gap: 2.4rem;
-	align-items: center;
-	padding: 1.4rem 2.4rem;
-
-	&:not(:last-child) {
-		border-bottom: 1px solid var(--color-brand-700);
-	}
-`;
+import Table from "../../ui/Table";
 
 const Img = styled.img`
 	display: block;
@@ -52,7 +41,6 @@ function ProductRow({ product }) {
 	const { isDeleting, deleteProduct } = useDeleteProduct();
 	const { isCreating, createProduct } = useCreateProduct();
 
-	// eslint-disable-next-line react/prop-types
 	const {
 		id: productId,
 		name,
@@ -72,16 +60,16 @@ function ProductRow({ product }) {
 		});
 	}
 	return (
-		<TableRow role="role">
+		<Table.Row>
 			<Img src={image} />
 			<Product>{name}</Product>
+			<Stock>{stockQuantity}</Stock>
 			<Price>{formatCurrency(regularPrice)}</Price>
 			{discount ? (
 				<Discount>{formatCurrency(discount)}</Discount>
 			) : (
 				<span>&mdash;</span>
 			)}
-			<Stock>{stockQuantity}</Stock>
 			<div>
 				<button onClick={handleDuplicate} disabled={isCreating}>
 					<HiSquare2Stack />{" "}
@@ -110,7 +98,7 @@ function ProductRow({ product }) {
 					</Modal.Window>
 				</Modal>
 			</div>
-		</TableRow>
+		</Table.Row>
 	);
 }
 
