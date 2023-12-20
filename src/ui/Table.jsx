@@ -107,7 +107,7 @@ Row.propTypes = {
 	children: PropTypes.node,
 };
 Body.propTypes = {
-	data: PropTypes.node,
+	data: PropTypes.array,
 	render: PropTypes.func,
 };
 export default Table;

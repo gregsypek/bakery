@@ -51,6 +51,8 @@ function FormRow({ label, error, children }) {
 FormRow.propTypes = {
 	label: PropTypes.string,
 	error: PropTypes.string,
-	children: PropTypes.element, // Expect only one element, for more use PropTypes.node
+	// Expect only one element, for more use PropTypes.node
+	// children: PropTypes.element,
+	children: PropTypes.node,
 };
 export default FormRow;
