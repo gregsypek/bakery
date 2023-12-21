@@ -1,13 +1,14 @@
 import styled from "styled-components";
+import { differenceInDays, format, isToday, parseISO } from "date-fns";
 
 import Table from "../../ui/Table";
-import { formatCurrency } from "../../utils/helpers";
+import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 import Tag from "../../ui/Tag";
 import PropTypes from "prop-types";
 
 const Product = styled.div`
 	font-size: 1.6rem;
-	font-weight: 600;
+	font-weight: 500;
 	color: var(----color-black-800);
 `;
 
@@ -33,8 +34,9 @@ const Amount = styled.div`
 function OrderRow({
 	order: {
 		id: orderId,
-		// created_at,
+		created_at,
 		// extrasPrice,
+		deliveryDate,
 		hasDelivery,
 		// isPaid,
 		// observations,
@@ -52,6 +54,11 @@ function OrderRow({
 		true: "green",
 		false: "red",
 	};
+
+	const startDate = parseISO(created_at);
+	const endDate = parseISO(deliveryDate);
+
+	const numberOfDays = differenceInDays(endDate, startDate);
 	return (
 		<Table.Row>
 			<Product>{orderId}</Product>
@@ -59,10 +66,21 @@ function OrderRow({
 				<span>{clientName}</span>
 				<span>{email}</span>
 			</Stacked>
-
+			<Stacked>
+				<span>
+					{isToday(new Date(created_at))
+						? "Today"
+						: formatDistanceFromNow(deliveryDate)}
+				</span>
+				<span>{format(new Date(created_at), "MMM dd yyyy")} </span>
+			</Stacked>
+			<Stacked>
+				<span>{numberOfDays} day left</span>
+				<span>{format(new Date(deliveryDate), "MMM dd yyyy")}</span>
+			</Stacked>
 			<Tag type={statusToTagName[status]}>{status}</Tag>
 			<Tag type={deliveryToTagName[hasDelivery]}>
-				{hasDelivery ? <span>ON</span> : <span>OFF</span>}
+				{hasDelivery ? <span>ON</span> : <span>OFFF</span>}
 			</Tag>
 
 			<Amount>{formatCurrency(totalPrice)}</Amount>
@@ -74,7 +92,8 @@ OrderRow.propTypes = {
 		id: PropTypes.number.isRequired,
 		status: PropTypes.string.isRequired,
 		hasDelivery: PropTypes.boolean,
-
+		deliveryDate: PropTypes.instanceOf(Date),
+		created_at: PropTypes.instanceOf(Date),
 		totalPrice: PropTypes.number.isRequired,
 		clients: PropTypes.shape({
 			fullName: PropTypes.string.isRequired,
