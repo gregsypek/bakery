@@ -59,7 +59,7 @@ const StyledButton = styled.button`
 	gap: 1.6rem;
 
 	&:hover {
-		background-color: var(--color-brand-600);
+		background-color: var(--color-brand-400);
 	}
 
 	& svg {
