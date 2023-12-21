@@ -106,7 +106,8 @@ function CreateProductForm() {
 
 			<FormRow>
 				{/* type is an HTML attribute! */}
-				<Button variation="empty" type="reset">
+				{/* The $ prefix signals to styled-components to exclude the prop from being passed to the DOM. */}
+				<Button $variation="empty" type="reset">
 					Cancel
 				</Button>
 				<Button disabled={isCreating}>Add product</Button>

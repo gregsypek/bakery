@@ -33,8 +33,8 @@ function ProductTable() {
 
 	if (isLoading) return <Spinner />;
 	return (
-		<Table role="table">
-			<TableHeader role="row">
+		<Table $role="table">
+			<TableHeader $role="row">
 				<div></div>
 				<div>Product</div>
 				<div>Price</div>

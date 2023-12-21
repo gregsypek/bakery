@@ -128,7 +128,7 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 
 			<FormRow>
 				{/* type is an HTML attribute! */}
-				<Button variation="empty" type="reset" onClick={() => onCloseModal?.()}>
+				<Button $variation="empty" type="reset" onClick={() => onCloseModal?.()}>
 					Cancel
 				</Button>
 				<Button disabled={isCreating}>
