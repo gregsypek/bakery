@@ -5,12 +5,14 @@ import { useProducts } from "./useProducts";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty";
 
 function ProductTable() {
 	const { isLoading, products } = useProducts();
 	const [searchParams] = useSearchParams();
 
 	if (isLoading) return <Spinner />;
+	if (!products.length) return <Empty resourceName="products" />;
 
 	// 1. Filter
 	const filterValue = searchParams.get("discount") || "all";

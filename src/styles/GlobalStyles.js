@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 :root {
   /* Brown */
- 
+
   --color-brand-100: #FCFCF0;
   --color-brand-200: #FEF7DB;
   --color-brand-400: #d6be9ed9;
@@ -14,9 +14,9 @@ const GlobalStyles = createGlobalStyle`
   --color-brand-900: #875d3b;
 
  --color-grey-300: #d1d5db;
-  --color-green-400: #BFD3BF;
-  --color-green-700: #47c547;
-    --color-red-700: #b91c1c;
+ --color-grey-700: #a0a0a1;
+  --color-green-700: #BFD3BF;
+    --color-red-700: #F8A99E;
   --color-red-800: #991b1b;
 
   --color-black-800: #402510;

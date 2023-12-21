@@ -30,8 +30,14 @@ const Price = styled.div`
 `;
 
 const Discount = styled.div`
+	width: fit-content;
+	text-transform: uppercase;
+	font-size: 1.1rem;
 	font-weight: 500;
-	color: var(--color-green-700);
+	padding: 0.4rem 1.2rem;
+	border-radius: 100px;
+	color: var(--color-black-900);
+	background-color: var(--color-green-700);
 `;
 const Stock = styled.div`
 	font-weight: 500;
