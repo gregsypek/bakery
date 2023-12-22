@@ -43,18 +43,20 @@ function OrderRow({
 		status,
 		totalPrice,
 		clients: { fullName: clientName, email },
-		orderItems: { quantity },
+		orderItems,
+		// orderItems: { quantity },
 		products: { name },
 	},
 }) {
 	const statusToTagName = {
 		confirmed: "green",
 		unconfirmed: "red",
+		null: "red",
 	};
 	const deliveryToTagName = {
 		true: "green",
 		false: "red",
-		null: "red",
+		null: "blue",
 	};
 
 	const startDate = parseISO(created_at);
@@ -82,13 +84,15 @@ function OrderRow({
 			</Stacked>
 			<Stacked>
 				<span>
-					{quantity}&times;{name}{" "}
+					{orderItems[0].quantity}&times;{name}{" "}
+					{/* {quantity}&times;{name}{" "} */}
 				</span>
 			</Stacked>
 
-			<Tag type={statusToTagName[status]}>{status}</Tag>
+			<Tag type={statusToTagName[status]}>{status ?? "new"}</Tag>
+
 			<Tag type={deliveryToTagName[hasDelivery]}>
-				{hasDelivery ? <span>ON</span> : <span>OFFF</span>}
+				{hasDelivery ? <span>ON</span> : <span>OFF</span>}
 			</Tag>
 
 			<Amount>{formatCurrency(totalPrice)}</Amount>
@@ -98,8 +102,7 @@ function OrderRow({
 OrderRow.propTypes = {
 	order: PropTypes.shape({
 		id: PropTypes.number.isRequired,
-		status: PropTypes.string.isRequired,
-		// hasDelivery: PropTypes.oneOfType([PropTypes.bool, PropTypes.undefined]),
+		status: PropTypes.string,
 		hasDelivery: PropTypes.oneOfType([
 			PropTypes.bool,
 			PropTypes.oneOf([undefined]),
@@ -107,13 +110,18 @@ OrderRow.propTypes = {
 		// deliveryDate: PropTypes.instanceOf(Date),
 		deliveryDate: PropTypes.string,
 		created_at: PropTypes.string,
-		// created_at: PropTypes.instanceOf(Date),
-		totalPrice: PropTypes.number.isRequired,
+		totalPrice: PropTypes.number,
 		clients: PropTypes.shape({
 			fullName: PropTypes.string.isRequired,
 			email: PropTypes.string.isRequired,
 		}),
-		orderItems: PropTypes.shape({ quantity: PropTypes.number }),
+		// orderItems: PropTypes.shape({ quantity: PropTypes.number }),
+		orderItems: PropTypes.arrayOf(
+			PropTypes.shape({
+				quantity: PropTypes.number,
+				// inne właściwości związane z orderItems
+			})
+		),
 		products: PropTypes.shape({ name: PropTypes.string }),
 	}),
 };

@@ -10,7 +10,7 @@ function OrdersTable() {
 
 	if (isLoading) return <Spinner />;
 
-	if (!orders.length) return <Empty resourceName="orders" />;
+	if (!orders?.length) return <Empty resourceName="orders" />;
 
 	return (
 		<Menus>
