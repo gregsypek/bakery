@@ -8,8 +8,8 @@ function Orders() {
 		<>
 			<Row type="horizontal">
 				<Heading as="h1">All Orders</Heading>
+				<OrderTableOperations />
 			</Row>
-			<OrderTableOperations />
 			<OrdersTable />
 		</>
 	);

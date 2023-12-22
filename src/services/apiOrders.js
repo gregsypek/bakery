@@ -1,6 +1,6 @@
 import supabase from "./supabase";
 
-export async function getOrders({ filter }) {
+export async function getOrders({ filter, sortBy }) {
 	let query = supabase
 		.from("orders")
 		.select(
@@ -8,9 +8,13 @@ export async function getOrders({ filter }) {
 		);
 
 	//FILTER
-	if (filter !== null)
-		query = query[filter.method || "eq"](filter.field, filter.value);
+	if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
 
+	//SORT
+	if (sortBy)
+		query = query.order(sortBy.field, {
+			ascending: sortBy.direction === "asc",
+		});
 	const { data, error } = await query;
 
 	if (error) {

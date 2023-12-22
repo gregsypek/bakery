@@ -13,13 +13,18 @@ export function useOrders() {
 			: { field: "status", value: filterValue };
 	// : { field: "status", value: filterValue, method: "gte" };
 
+	//SORT
+	const sortByRaw = searchParams.get("sortBy") || "deliveryDate-asc";
+	const [field, direction] = sortByRaw.split("-");
+	const sortBy = { field, direction };
+
 	const {
 		isLoading,
 		data: orders,
 		error,
 	} = useQuery({
-		queryKey: ["orders", filter],
-		queryFn: () => getOrders({ filter }),
+		queryKey: ["orders", filter, sortBy], //acts like dependency in useEffect
+		queryFn: () => getOrders({ filter, sortBy }),
 	});
 
 	return { isLoading, error, orders };
