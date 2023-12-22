@@ -45,7 +45,8 @@ function OrderRow({
 		clients: { fullName: clientName, email },
 		orderItems,
 		// orderItems: { quantity },
-		products: { name },
+		// products: { name },
+		products,
 	},
 }) {
 	const statusToTagName = {
@@ -84,8 +85,12 @@ function OrderRow({
 			</Stacked>
 			<Stacked>
 				<span>
-					{orderItems[0].quantity}&times;{name}{" "}
-					{/* {quantity}&times;{name}{" "} */}
+					{orderItems.map((item, index) => (
+						<span key={index}>
+							{item.quantity} &times; {products.name}
+							{index < orderItems.length - 1 && ","}{" "}
+						</span>
+					))}
 				</span>
 			</Stacked>
 
@@ -122,7 +127,7 @@ OrderRow.propTypes = {
 				// inne właściwości związane z orderItems
 			})
 		),
-		products: PropTypes.shape({ name: PropTypes.string }),
+		products: PropTypes.shape({ name: PropTypes.string, id: PropTypes.id }),
 	}),
 };
 

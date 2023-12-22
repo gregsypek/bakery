@@ -20,7 +20,7 @@ function OrdersTable() {
 					<div>Client</div>
 					<div>Order Date</div>
 					<div>Due Date</div>
-					<div>Product</div>
+					<div>Products</div>
 					<div>Status</div>
 					<div>Delivery</div>
 					<div>Amount</div>
