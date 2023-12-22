@@ -15,9 +15,9 @@ const StyledSelect = styled.select`
 	box-shadow: var(--shadow-sm);
 `;
 
-function Select({ options, value, onChange, ...props }) {
+function Select({ options, value, onChange, $type, ...props }) {
 	return (
-		<StyledSelect value={value} onChange={onChange} {...props}>
+		<StyledSelect value={value} onChange={onChange} $type={$type} {...props}>
 			{options.map((option) => (
 				<option value={option.value} key={option.value}>
 					{option.label}
@@ -30,13 +30,14 @@ function Select({ options, value, onChange, ...props }) {
 Select.propTypes = {
 	options: PropTypes.arrayOf(
 		PropTypes.shape({
-			value: PropTypes.string,
-			label: PropTypes.string,
+			value: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired,
 		})
 	),
 	value: PropTypes.string,
-	onChange: PropTypes.func.isRequired,
-	...PropTypes.object,
+	onChange: PropTypes.func,
+	$type: PropTypes.string,
+	// ...PropTypes.object,
 };
 
 export default Select;

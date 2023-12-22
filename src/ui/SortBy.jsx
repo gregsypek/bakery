@@ -27,6 +27,6 @@ SortBy.propTypes = {
 			value: PropTypes.string,
 			label: PropTypes.string,
 		})
-	).isRequired,
+	),
 };
 export default SortBy;

@@ -4,7 +4,7 @@ export async function getOrders() {
 	const { data, error } = await supabase
 		.from("orders")
 		.select(
-			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, status, totalPrice, clients(fullName, email)"
+			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, status, totalPrice, clients(fullName, email), orderItems(quantity), products(name)"
 		);
 
 	if (error) {

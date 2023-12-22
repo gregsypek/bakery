@@ -43,7 +43,8 @@ function OrderRow({
 		status,
 		totalPrice,
 		clients: { fullName: clientName, email },
-		// items: { productId: id }, //FIXME: CHECK THIS
+		orderItems: { quantity },
+		products: { name },
 	},
 }) {
 	const statusToTagName = {
@@ -53,6 +54,7 @@ function OrderRow({
 	const deliveryToTagName = {
 		true: "green",
 		false: "red",
+		null: "red",
 	};
 
 	const startDate = parseISO(created_at);
@@ -78,6 +80,12 @@ function OrderRow({
 				<span>{numberOfDays} day left</span>
 				<span>{format(new Date(deliveryDate), "MMM dd yyyy")}</span>
 			</Stacked>
+			<Stacked>
+				<span>
+					{quantity}&times;{name}{" "}
+				</span>
+			</Stacked>
+
 			<Tag type={statusToTagName[status]}>{status}</Tag>
 			<Tag type={deliveryToTagName[hasDelivery]}>
 				{hasDelivery ? <span>ON</span> : <span>OFFF</span>}
@@ -91,14 +99,22 @@ OrderRow.propTypes = {
 	order: PropTypes.shape({
 		id: PropTypes.number.isRequired,
 		status: PropTypes.string.isRequired,
-		hasDelivery: PropTypes.boolean,
-		deliveryDate: PropTypes.instanceOf(Date),
-		created_at: PropTypes.instanceOf(Date),
+		// hasDelivery: PropTypes.oneOfType([PropTypes.bool, PropTypes.undefined]),
+		hasDelivery: PropTypes.oneOfType([
+			PropTypes.bool,
+			PropTypes.oneOf([undefined]),
+		]),
+		// deliveryDate: PropTypes.instanceOf(Date),
+		deliveryDate: PropTypes.string,
+		created_at: PropTypes.string,
+		// created_at: PropTypes.instanceOf(Date),
 		totalPrice: PropTypes.number.isRequired,
 		clients: PropTypes.shape({
 			fullName: PropTypes.string.isRequired,
 			email: PropTypes.string.isRequired,
 		}),
+		orderItems: PropTypes.shape({ quantity: PropTypes.number }),
+		products: PropTypes.shape({ name: PropTypes.string }),
 	}),
 };
 

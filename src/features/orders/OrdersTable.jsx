@@ -14,12 +14,13 @@ function OrdersTable() {
 
 	return (
 		<Menus>
-			<Table columns="0.6fr 1.5fr 1.5fr 1.5fr 1.4fr 1fr 1fr 3.2rem">
+			<Table columns="0.5fr 1.5fr 1.2fr 1.2fr 1.4fr 1fr 1fr 1fr 3.2rem">
 				<Table.Header>
 					<div>Order</div>
 					<div>Client</div>
 					<div>Order Date</div>
 					<div>Due Date</div>
+					<div>Product</div>
 					<div>Status</div>
 					<div>Delivery</div>
 					<div>Amount</div>
