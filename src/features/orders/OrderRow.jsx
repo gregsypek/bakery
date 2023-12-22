@@ -50,9 +50,16 @@ function OrderRow({
 	},
 }) {
 	const statusToTagName = {
-		confirmed: "green",
-		unconfirmed: "red",
-		null: "red",
+		// confirmed: "green",
+		// unconfirmed: "red",
+		// null: "blue", //'new'
+		// priority: "red",
+
+		processing: "yellow",
+		shipped: "grey",
+		delivered: "green",
+		canceled: "red",
+		completed: "blue",
 	};
 	const deliveryToTagName = {
 		true: "green",
@@ -127,7 +134,7 @@ OrderRow.propTypes = {
 				// inne właściwości związane z orderItems
 			})
 		),
-		products: PropTypes.shape({ name: PropTypes.string, id: PropTypes.id }),
+		products: PropTypes.shape({ name: PropTypes.string, id: PropTypes.number }),
 	}),
 };
 
