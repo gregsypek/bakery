@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrders } from "../../services/apiOrders";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export function useOrders() {
+	const queryClient = useQueryClient();
 	const [searchParams] = useSearchParams();
 
 	//FILTER
@@ -21,6 +23,7 @@ export function useOrders() {
 	//PAGINATION
 	const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
+	//QUERY
 	const {
 		isLoading,
 		data: { data: orders, count } = {},
@@ -30,5 +33,19 @@ export function useOrders() {
 		queryFn: () => getOrders({ filter, sortBy, page }),
 	});
 
+	//PRE-FETCHING
+	const pageCount = Math.ceil(count / PAGE_SIZE);
+
+	if (page < pageCount)
+		queryClient.prefetchQuery({
+			queryKey: ["orders", filter, sortBy, page + 1],
+			queryFn: () => getOrders({ filter, sortBy, page: page + 1 }),
+		});
+
+	if (page > 1)
+		queryClient.prefetchQuery({
+			queryKey: ["orders", filter, sortBy, page - 1],
+			queryFn: () => getOrders({ filter, sortBy, page: page - 1 }),
+		});
 	return { isLoading, error, orders, count };
 }
