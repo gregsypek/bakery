@@ -7,7 +7,7 @@ import OrderRow from "./OrderRow";
 import { useOrders } from "./useOrders";
 
 function OrdersTable() {
-	const { orders, isLoading } = useOrders();
+	const { orders, isLoading, count } = useOrders();
 
 	if (isLoading) return <Spinner />;
 
@@ -33,7 +33,7 @@ function OrdersTable() {
 					render={(order) => <OrderRow key={order.id} order={order} />}
 				></Table.Body>
 				<Table.Footer>
-					<Pagination count={5} />
+					<Pagination count={count} />
 				</Table.Footer>
 			</Table>
 		</Menus>

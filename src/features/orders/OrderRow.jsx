@@ -98,29 +98,7 @@ function OrderRow({
 					</span>
 				))}
 			</Stacked>
-			{/* <Stacked>
-				{orderItems.map((item, index) => (
-					<span key={index}>
-						{item.quantity} &times; {item.products.name}
-						{index < orderItems.length - 1 && ","}{" "}
-					</span>
-				))}
-			</Stacked> */}
-			{/* <Stacked>
-				<span>
-					{
-						<span>
-							{orderItems.map((item, index) => (
-								<span key={index}>
-									{item.quantity} &times;{" "}
-									{item.products.map((product) => product.name).join(", ")}
-									{index < orderItems.length - 1 && ","}{" "}
-								</span>
-							))}
-						</span>
-					}
-				</span>
-			</Stacked> */}
+
 			<Tag type={statusToTagName[status]}>{status}</Tag>
 			<Tag type={deliveryToTagName[hasDelivery]}>
 				{hasDelivery ? <span>ON</span> : <span>OFF</span>}
@@ -153,7 +131,7 @@ OrderRow.propTypes = {
 				// inne właściwości związane z orderItems
 			})
 		),
-		products: PropTypes.shape({ name: PropTypes.string, id: PropTypes.number }),
+		// products: PropTypes.shape({ name: PropTypes.string, id: PropTypes.number }),
 	}),
 };
 

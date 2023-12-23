@@ -4,6 +4,7 @@ import styled from "styled-components";
 // import { PAGE_SIZE } from "../utils/constants";
 import PropTypes from "prop-types";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../utils/constants";
 
 const StyledPagination = styled.div`
 	width: 100%;
@@ -61,7 +62,6 @@ const PaginationButton = styled.button`
 	}
 `;
 
-const PAGE_SIZE = 5;
 function Pagination({ count }) {
 	const [searchParams, setSearchParams] = useSearchParams();
 

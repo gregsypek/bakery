@@ -18,14 +18,17 @@ export function useOrders() {
 	const [field, direction] = sortByRaw.split("-");
 	const sortBy = { field, direction };
 
+	//PAGINATION
+	const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
 	const {
 		isLoading,
-		data: orders,
+		data: { data: orders, count } = {},
 		error,
 	} = useQuery({
-		queryKey: ["orders", filter, sortBy], //acts like dependency in useEffect
-		queryFn: () => getOrders({ filter, sortBy }),
+		queryKey: ["orders", filter, sortBy, page], //acts like dependency in useEffect
+		queryFn: () => getOrders({ filter, sortBy, page }),
 	});
 
-	return { isLoading, error, orders };
+	return { isLoading, error, orders, count };
 }
