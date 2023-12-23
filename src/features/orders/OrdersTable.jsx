@@ -1,5 +1,6 @@
 import Empty from "../../ui/Empty";
 import Menus from "../../ui/Menus";
+import Pagination from "../../ui/Paginations";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import OrderRow from "./OrderRow";
@@ -31,6 +32,9 @@ function OrdersTable() {
 					data={orders}
 					render={(order) => <OrderRow key={order.id} order={order} />}
 				></Table.Body>
+				<Table.Footer>
+					<Pagination count={5} />
+				</Table.Footer>
 			</Table>
 		</Menus>
 	);
