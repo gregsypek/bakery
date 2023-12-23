@@ -35,7 +35,7 @@ export async function getOrders({ filter, sortBy, page }) {
 export async function getOrder(id) {
 	const { data, error } = await supabase
 		.from("orders")
-		.select("*, clients(*), products(*)")
+		.select("*, clients(*), products(*), orderItems(*))")
 		.eq("id", id)
 		.single();
 
@@ -44,5 +44,6 @@ export async function getOrder(id) {
 		throw new Error("Order not found");
 	}
 
+	console.log("🚀 ~ file: apiOrders.js:49 ~ getOrder ~ data:", data);
 	return data;
 }

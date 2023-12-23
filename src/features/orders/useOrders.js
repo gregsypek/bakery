@@ -47,5 +47,6 @@ export function useOrders() {
 			queryKey: ["orders", filter, sortBy, page - 1],
 			queryFn: () => getOrders({ filter, sortBy, page: page - 1 }),
 		});
+
 	return { isLoading, error, orders, count };
 }

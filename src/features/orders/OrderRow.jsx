@@ -5,6 +5,10 @@ import Table from "../../ui/Table";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 import Tag from "../../ui/Tag";
 import PropTypes from "prop-types";
+import Menus from "../../ui/Menus";
+import { HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import { statusToTagName } from "../status/statusTagName";
 
 const Product = styled.div`
 	font-size: 1.6rem;
@@ -49,18 +53,8 @@ function OrderRow({
 		// products,
 	},
 }) {
-	const statusToTagName = {
-		// confirmed: "green",
-		// unconfirmed: "red",
-		// null: "blue", //'new'
-		// priority: "red",
-		new: "orange",
-		processing: "yellow",
-		shipped: "grey",
-		delivered: "green",
-		canceled: "red",
-		completed: "blue",
-	};
+	const navigate = useNavigate();
+
 	const deliveryToTagName = {
 		true: "green",
 		false: "red",
@@ -104,6 +98,17 @@ function OrderRow({
 				{hasDelivery ? <span>ON</span> : <span>OFF</span>}
 			</Tag>
 			<Amount>{formatCurrency(totalPrice)}</Amount>
+			<Menus.Menu>
+				<Menus.Toggle id={orderId} />
+				<Menus.List id={orderId}>
+					<Menus.Button
+						icon={<HiEye />}
+						onClick={() => navigate(`/orders/${orderId}`)}
+					>
+						See details
+					</Menus.Button>
+				</Menus.List>
+			</Menus.Menu>
 		</Table.Row>
 	);
 }
