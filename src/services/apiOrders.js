@@ -4,7 +4,7 @@ export async function getOrders({ filter, sortBy }) {
 	let query = supabase
 		.from("orders")
 		.select(
-			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, status, totalPrice, clients(fullName, email), orderItems(quantity, productId), products(name, id)"
+			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, status, totalPrice, clients(fullName, email), orderItems(quantity, productId, products(name))"
 		);
 
 	//FILTER

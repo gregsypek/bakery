@@ -46,7 +46,7 @@ function OrderRow({
 		orderItems,
 		// orderItems: { quantity },
 		// products: { name },
-		products,
+		// products,
 	},
 }) {
 	const statusToTagName = {
@@ -54,7 +54,7 @@ function OrderRow({
 		// unconfirmed: "red",
 		// null: "blue", //'new'
 		// priority: "red",
-
+		new: "orange",
 		processing: "yellow",
 		shipped: "grey",
 		delivered: "green",
@@ -91,22 +91,40 @@ function OrderRow({
 				<span>{format(new Date(deliveryDate), "MMM dd yyyy")}</span>
 			</Stacked>
 			<Stacked>
-				<span>
-					{orderItems.map((item, index) => (
-						<span key={index}>
-							{item.quantity} &times; {products.name}
-							{index < orderItems.length - 1 && ","}{" "}
-						</span>
-					))}
-				</span>
+				{orderItems.map((item, index) => (
+					<span key={index}>
+						{item.quantity} &times; {item.products.name}
+						{index < orderItems.length - 1 && ","}{" "}
+					</span>
+				))}
 			</Stacked>
-
-			<Tag type={statusToTagName[status]}>{status ?? "new"}</Tag>
-
+			{/* <Stacked>
+				{orderItems.map((item, index) => (
+					<span key={index}>
+						{item.quantity} &times; {item.products.name}
+						{index < orderItems.length - 1 && ","}{" "}
+					</span>
+				))}
+			</Stacked> */}
+			{/* <Stacked>
+				<span>
+					{
+						<span>
+							{orderItems.map((item, index) => (
+								<span key={index}>
+									{item.quantity} &times;{" "}
+									{item.products.map((product) => product.name).join(", ")}
+									{index < orderItems.length - 1 && ","}{" "}
+								</span>
+							))}
+						</span>
+					}
+				</span>
+			</Stacked> */}
+			<Tag type={statusToTagName[status]}>{status}</Tag>
 			<Tag type={deliveryToTagName[hasDelivery]}>
 				{hasDelivery ? <span>ON</span> : <span>OFF</span>}
 			</Tag>
-
 			<Amount>{formatCurrency(totalPrice)}</Amount>
 		</Table.Row>
 	);
@@ -131,6 +149,7 @@ OrderRow.propTypes = {
 		orderItems: PropTypes.arrayOf(
 			PropTypes.shape({
 				quantity: PropTypes.number,
+				productId: PropTypes.number,
 				// inne właściwości związane z orderItems
 			})
 		),
