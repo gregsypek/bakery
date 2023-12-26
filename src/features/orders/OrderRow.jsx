@@ -133,10 +133,8 @@ OrderRow.propTypes = {
 			PropTypes.shape({
 				quantity: PropTypes.number,
 				productId: PropTypes.number,
-				// inne właściwości związane z orderItems
 			})
 		),
-		// products: PropTypes.shape({ name: PropTypes.string, id: PropTypes.number }),
 	}),
 };
 

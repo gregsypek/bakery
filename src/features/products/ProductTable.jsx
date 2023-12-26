@@ -49,8 +49,8 @@ function ProductTable() {
 					// data={products}
 					// data={filteredProducts}
 					data={sortedProducts}
-					render={(product) => (
-						<ProductRow product={product} key={product.id} />
+					render={(product, index) => (
+						<ProductRow product={product} key={index} />
 					)}
 				/>
 			</Table>

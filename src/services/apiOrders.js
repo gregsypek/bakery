@@ -5,7 +5,7 @@ export async function getOrders({ filter, sortBy, page }) {
 	let query = supabase
 		.from("orders")
 		.select(
-			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, status, totalPrice, clients(fullName, email), orderItems(quantity, productId, products(name))",
+			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, observations, status, totalPrice, clients(fullName, email), orderItems(quantity, productId, products(name))",
 			{ count: "exact" }
 		);
 
@@ -33,17 +33,38 @@ export async function getOrders({ filter, sortBy, page }) {
 }
 
 export async function getOrder(id) {
-	const { data, error } = await supabase
+	const { data: orderData, error: orderError } = await supabase
 		.from("orders")
-		.select("*, clients(*), products(*), orderItems(*))")
+		.select(
+			"*, clients(*), products(*), orderItems(quantity, productId, products(name, regularPrice)))"
+		)
 		.eq("id", id)
+		.single();
+	if (orderError) {
+		console.error(orderError);
+		throw new Error("Order not found");
+	}
+
+	// Get data from settings - deliveryFee - as well
+	const { data, error } = await supabase
+		.from("settings")
+		.select("deliveryFee")
+		.eq("id", 1)
 		.single();
 
 	if (error) {
 		console.error(error);
-		throw new Error("Order not found");
+		throw new Error("Settings not found");
 	}
 
-	console.log("🚀 ~ file: apiOrders.js:49 ~ getOrder ~ data:", data);
-	return data;
+	const orderWithSettings = {
+		...orderData,
+		settings: data,
+	};
+
+	console.log(
+		"🚀 ~ file: apiOrders.js:49 ~ getOrder ~ data:",
+		orderWithSettings
+	);
+	return orderWithSettings;
 }

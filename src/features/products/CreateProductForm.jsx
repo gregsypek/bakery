@@ -128,7 +128,11 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 
 			<FormRow>
 				{/* type is an HTML attribute! */}
-				<Button $variation="empty" type="reset" onClick={() => onCloseModal?.()}>
+				<Button
+					$variation="empty"
+					type="reset"
+					onClick={() => onCloseModal?.()}
+				>
 					Cancel
 				</Button>
 				<Button disabled={isCreating}>
@@ -141,9 +145,9 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 
 CreateProductForm.propTypes = {
 	productToEdit: PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		name: PropTypes.string.isRequired,
-		regularPrice: PropTypes.number.isRequired,
+		id: PropTypes.number,
+		name: PropTypes.string,
+		regularPrice: PropTypes.number,
 		image: PropTypes.string,
 		discount: PropTypes.number,
 		stockQuantity: PropTypes.number,

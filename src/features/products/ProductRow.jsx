@@ -59,6 +59,7 @@ function ProductRow({ product }) {
 	} = product;
 
 	function handleDuplicate() {
+		console.log("DUPLICATE!!!!!!!!!");
 		createProduct({
 			name: `Copy of ${name}`,
 			regularPrice,
@@ -117,9 +118,9 @@ function ProductRow({ product }) {
 
 ProductRow.propTypes = {
 	product: PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		name: PropTypes.string.isRequired,
-		regularPrice: PropTypes.number.isRequired,
+		id: PropTypes.number,
+		name: PropTypes.string,
+		regularPrice: PropTypes.number,
 		image: PropTypes.string,
 		discount: PropTypes.number,
 		stockQuantity: PropTypes.number,
