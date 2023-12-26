@@ -50,7 +50,8 @@ function ProductRow({ product }) {
 	const { isCreating, createProduct } = useCreateProduct();
 
 	const {
-		id: productId,
+		// id: productId,
+		productId,
 		name,
 		regularPrice,
 		image,
@@ -104,7 +105,7 @@ function ProductRow({ product }) {
 
 						<Modal.Window name="delete">
 							<ConfirmDelete
-								resource="cabins"
+								resource="product"
 								disabled={isDeleting}
 								onConfirm={() => deleteProduct(productId)}
 							/>
@@ -118,7 +119,7 @@ function ProductRow({ product }) {
 
 ProductRow.propTypes = {
 	product: PropTypes.shape({
-		id: PropTypes.number,
+		productId: PropTypes.number,
 		name: PropTypes.string,
 		regularPrice: PropTypes.number,
 		image: PropTypes.string,

@@ -6,7 +6,15 @@ export function useDeleteProduct() {
 	const queryProduct = useQueryClient();
 
 	const { isLoading: isDeleting, mutate: deleteProduct } = useMutation({
-		mutationFn: (id) => deleteProductApi(id),
+		// mutationFn: (id) => {
+		// 	console.log(
+		// 		"🚀 ~ file: useDeleteProduct.js:10 ~ useDeleteProduct ~ id:",
+		// 		id
+		// 	);
+		// 	deleteProductApi(id);
+		// },
+		mutationFn: deleteProductApi,
+
 		onSuccess: () => {
 			toast.success("Product successfully deleted");
 			//invalidateQueries only work on useClient and we have special hook useQueryClient to get one

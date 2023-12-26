@@ -5,8 +5,8 @@ import { createEditProduct } from "../../services/apiProducts";
 export function useUpdateProduct() {
 	const queryClient = useQueryClient();
 	const { mutate: updateProduct, isLoading: isUpdating } = useMutation({
-		mutationFn: ({ newProductData, id }) =>
-			createEditProduct(newProductData, id),
+		mutationFn: ({ newProductData, productId }) =>
+			createEditProduct(newProductData, productId),
 		onSuccess: () => {
 			toast.success("Product successfully edited");
 			queryClient.invalidateQueries({ queryKey: ["products"] });

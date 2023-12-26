@@ -22,11 +22,13 @@ const GlobalStyles = createGlobalStyle`
   --color-brown-700: #A6764F;
   --color-black-700: #402510;
   --color-cream-700: #CFB494;
+  
   --color-grey-700: #cfd0c6;
   --color-blue-700: #c0eff8;
   --color-blue-900: #1467a6;
     --color-red-700: #F8A99E;
-  --color-red-800: #991b1b;
+  --color-red-800: #c21111;
+  --color-red-900: #a21c1c;
 
   --color-black-800: #402510;
   --color-black-900: #2B190B;

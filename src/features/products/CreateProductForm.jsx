@@ -15,7 +15,7 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 
 	const isWorking = isCreating || isUpdating;
 
-	const { id: editId, ...editValues } = productToEdit;
+	const { productId: editId, ...editValues } = productToEdit;
 	const isEditSession = Boolean(editId);
 
 	const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -28,10 +28,10 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 
 		if (isEditSession)
 			updateProduct(
-				{ newProductData: { ...data, image }, id: editId },
+				{ newProductData: { ...data, image }, productId: editId },
 				{
 					onSuccess: (data) => {
-						console.log(data), reset();
+						console.log("update", data), reset();
 						onCloseModal?.();
 					},
 				}
@@ -41,7 +41,7 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 				{ ...data, image: image },
 				{
 					onSuccess: (data) => {
-						console.log(data), reset();
+						console.log("create", data), reset();
 						onCloseModal?.();
 					},
 				}
@@ -145,7 +145,7 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 
 CreateProductForm.propTypes = {
 	productToEdit: PropTypes.shape({
-		id: PropTypes.number,
+		productId: PropTypes.number,
 		name: PropTypes.string,
 		regularPrice: PropTypes.number,
 		image: PropTypes.string,

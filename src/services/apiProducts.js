@@ -31,7 +31,9 @@ export async function createEditProduct(newProduct, id) {
 
 	//B) Edit
 	if (id)
-		query = query.update({ ...newProduct, image: imagePath }).eq("id", id);
+		query = query
+			.update({ ...newProduct, image: imagePath })
+			.eq("productId", id);
 
 	const { data, error } = await query
 		.select() //to return newly created object
@@ -52,7 +54,7 @@ export async function createEditProduct(newProduct, id) {
 
 	//3.Delete the product if there was an error uploading image
 	if (storageError) {
-		await supabase.from("products").delete().eq("id", data.id);
+		await supabase.from("products").delete().eq("productId", data.id);
 		console.log(storageError);
 		throw new Error(
 			"Product image could not be uploaded and the cabin was not created"
@@ -62,7 +64,10 @@ export async function createEditProduct(newProduct, id) {
 }
 
 export async function deleteProduct(id) {
-	const { data, error } = await supabase.from("products").delete().eq("id", id);
+	const { data, error } = await supabase
+		.from("products")
+		.delete()
+		.eq("productId", id);
 	if (error) {
 		console.error(error);
 		throw new Error("Product could not be deleted");
