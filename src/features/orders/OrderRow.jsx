@@ -58,7 +58,7 @@ function OrderRow({
 	const deliveryToTagName = {
 		true: "green",
 		false: "red",
-		null: "blue",
+		null: "orange",
 	};
 
 	const startDate = parseISO(created_at);
@@ -108,7 +108,7 @@ function OrderRow({
 						See details
 					</Menus.Button>
 
-					{status === "inprogress" && (
+					{status !== "shipped" && (
 						<Menus.Button
 							icon={<HiEye />}
 							onClick={() => navigate(`/status/${orderId}`)}

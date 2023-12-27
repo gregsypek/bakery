@@ -25,8 +25,14 @@ const HeadingGroup = styled.div`
 
 function StatusChange() {
 	const { order, isLoading } = useOrder();
+	const [confirmNew, setConfirmNew] = useState(false);
+	console.log(
+		"🚀 ~ file: StatusChange.jsx:29 ~ StatusChange ~ confirmNew:",
+		confirmNew
+	);
 	const [confirmCompleted, setConfirmCompleted] = useState(false);
 	const [confirmInprogress, setConfirmInprogress] = useState(false);
+	const [confirmShipped, setConfirmShipped] = useState(false);
 
 	const { statusChanged, isStatusChanged } = useStatusChange();
 	console.log(
@@ -35,23 +41,29 @@ function StatusChange() {
 	);
 
 	// const navigate = useNavigate();
-
 	const moveBack = useMoveBack();
 
 	useEffect(() => {
-		setConfirmCompleted(order?.status === "completed" || false);
+		setConfirmNew(order?.status === "new" || false);
 		setConfirmInprogress(order?.status === "inprogress" || false);
-	}, [order]);
+		setConfirmCompleted(order?.status === "completed" || false);
+		setConfirmShipped(order?.status === "shipped" || false);
+	}, [order, setConfirmNew]);
 
 	if (isLoading) return <Spinner />;
 	if (!order) return <Empty resource="order" />;
+	console.log("🚀 ~ file: StatusChange.jsx:55 ~ StatusChange ~ order:", order);
 
 	const { id: orderId, status } = order;
 
 	function handleChangeStatus() {
 		// if (status === "inprogress") statusCompleted(orderId);//version_1
+		if (status === "new")
+			statusChanged.mutate({ orderId, status: "inprogress" });
 		if (status === "inprogress")
 			statusChanged.mutate({ orderId, status: "completed" });
+		if (status === "completed")
+			statusChanged.mutate({ orderId, status: "shipped" });
 	}
 
 	return (
@@ -65,50 +77,65 @@ function StatusChange() {
 			</Row>
 			<OrderDataBox order={order} />
 
-			{status !== "shipped" && status !== "new" && (
-				<Checkbox
-					checked={confirmCompleted}
-					onChange={() => setConfirmCompleted((confirm) => !confirm)}
-					id="confirm"
-					disabled={order?.status === "shipped"}
-				>
-					I confirm that order #{orderId} has been completed
-				</Checkbox>
-			)}
 			{status === "new" && (
 				<Checkbox
 					checked={confirmInprogress}
 					onChange={() => setConfirmInprogress((confirm) => !confirm)}
 					id="confirm progress"
-					disabled={order?.status === "inprogress"}
 				>
 					I confirm that order #{orderId} is now in progress
 				</Checkbox>
 			)}
+			{status === "inprogress" && (
+				<Checkbox
+					checked={confirmCompleted}
+					onChange={() => setConfirmCompleted((confirm) => !confirm)}
+					id="confirm completed"
+				>
+					I confirm that order #{orderId} is now completed
+				</Checkbox>
+			)}
+			{status === "completed" && (
+				<Checkbox
+					checked={confirmShipped}
+					onChange={() => setConfirmShipped((confirm) => !confirm)}
+					id="confirm shipped"
+				>
+					I confirm that order #{orderId} is now shipped
+				</Checkbox>
+			)}
 			<ButtonGroup>
-				{status !== "shipped" && (
+				{status === "new" && (
 					<Button
 						onClick={handleChangeStatus}
-						disabled={
-							(!confirmCompleted && status !== "new") ||
-							(status === "new" && !confirmInprogress) ||
-							isStatusChanged
-						}
-					>
-						Change status {console.log("confirmCompleted", confirmCompleted)}
-						{/* Change status {console.log("confirmInprogress", confirmInprogress)} */}
-					</Button>
-				)}
-				{/* {status === "inprogress" && (
-					<Button
-						onClick={() => navigate(`/status/${orderId}`)}
-						disabled={!confirmCompleted}
+						disabled={!confirmInprogress || isStatusChanged}
 					>
 						Change status
 					</Button>
-				)} */}
-				{/* {status === "completed" && (
-					<Button>Order Confirmation for Pickup</Button>
+				)}
+				{status === "inprogress" && (
+					<Button
+						onClick={handleChangeStatus}
+						disabled={!confirmCompleted || isStatusChanged}
+					>
+						Change status
+					</Button>
+				)}
+				{status === "completed" && (
+					<Button
+						onClick={handleChangeStatus}
+						disabled={!confirmShipped || isStatusChanged}
+					>
+						Change status
+					</Button>
+				)}
+				{/* {status === "shipped" && (
+					<Button
+						onClick={handleChangeStatus}
+						disabled={!confirmShipped || isStatusChanged}
+					>
+						Change status
+					</Button>
 				)} */}
 
 				<Button $variation="secondary" onClick={moveBack}>

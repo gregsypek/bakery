@@ -95,13 +95,13 @@ function OrderDataBox({ order }) {
 					{format(new Date(deliveryDate), "EEE, MMM dd yyyy")}
 				</Box>
 				{/* #3 ROW */}
-				<Box colSpan={1} start={1} $backgroundcolor={"green"}>
+				<Box colSpan={1} start={1} $backgroundcolor={"blue"}>
 					<HiOutlineAtSymbol />
 				</Box>
-				<Box colSpan={4} start={2} $backgroundcolor={"green"}>
+				<Box colSpan={4} start={2} $backgroundcolor={"blue"}>
 					<p>{clientName}</p>
 				</Box>
-				<Box colSpan={2} start={6} $backgroundcolor={"green"}>
+				<Box colSpan={2} start={6} $backgroundcolor={"blue"}>
 					<p>{email}</p>
 				</Box>
 
