@@ -12,6 +12,8 @@ import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 // import { statusToTagName } from "../status/statusTagName";
 import OrderDataBox from "./OrderDataBox";
+import { useNavigate } from "react-router-dom";
+// import { useStatusCompleted } from "../status/useStatusCompleted";
 
 const HeadingGroup = styled.div`
 	display: flex;
@@ -21,6 +23,7 @@ const HeadingGroup = styled.div`
 
 function OrderDetail() {
 	const { order, isLoading } = useOrder();
+	const navigate = useNavigate();
 
 	const moveBack = useMoveBack();
 
@@ -40,11 +43,21 @@ function OrderDetail() {
 			</Row>
 			<OrderDataBox order={order} />
 			<ButtonGroup>
-				{status === "completed" && (
-					<Button>Order Confirmation for Pickup</Button>
+				{status !== "shipped" && (
+					<Button onClick={() => navigate(`/status/${orderId}`)}>
+						Change status here
+					</Button>
 				)}
+				{/* {status === "inprogress" && (
+					<Button onClick={() => navigate(`/status/${orderId}`)}>
+						Order status
+					</Button>
+				)} */}
+				{/* {status === "completed" && (
+					<Button>Order Confirmation for Pickup</Button>
+				)} */}
 
-				<Button variation="secondary" onClick={moveBack}>
+				<Button $variation="secondary" onClick={moveBack}>
 					Back
 				</Button>
 			</ButtonGroup>

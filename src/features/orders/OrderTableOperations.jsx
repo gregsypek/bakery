@@ -10,7 +10,8 @@ function OrderTableOperations() {
 				options={[
 					{ value: "all", label: "All" },
 					{ value: "new", label: "New" },
-					{ value: "processing", label: "Processing" },
+					{ value: "inprogress", label: "Inprogress" },
+
 					{ value: "shipped", label: "Shipped" },
 					{ value: "canceled", label: "Canceled" },
 					{ value: "completed", label: "Completed" },

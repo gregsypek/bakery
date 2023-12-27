@@ -13,6 +13,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Order from "./pages/Order";
+import Status from "./pages/Status";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -34,6 +35,7 @@ function App() {
 						<Route path="dashboard" element={<Dashboard />} />
 						<Route path="orders" element={<Orders />} />
 						<Route path="orders/:orderId" element={<Order />} />
+						<Route path="status/:orderId" element={<Status />} />
 						<Route path="products" element={<Products />} />
 						<Route path="users" element={<Users />} />
 						<Route path="settings" element={<Settings />} />
@@ -56,7 +58,7 @@ function App() {
 						fontSize: "16px",
 						maxWidth: "500px",
 						padding: "16px 24px",
-						backgroundColor: "var(--color-brand-100",
+						backgroundColor: "var(--color-brand-100)",
 						color: "var(--color-brand-900)",
 					},
 				}}

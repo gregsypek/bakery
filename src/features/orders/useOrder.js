@@ -9,7 +9,7 @@ export function useOrder() {
 		data: order,
 		error,
 	} = useQuery({
-		queryKey: ["order"],
+		queryKey: ["order", orderId],
 		queryFn: () => getOrder(orderId),
 		retry: false, //react query fetch data 3 times in case of fails
 	});

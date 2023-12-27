@@ -68,3 +68,18 @@ export async function getOrder(id) {
 	);
 	return orderWithSettings;
 }
+
+export async function updateOrder(id, obj) {
+	const { data, error } = await supabase
+		.from("orders")
+		.update(obj)
+		.eq("id", id)
+		.select()
+		.single();
+
+	if (error) {
+		console.error(error);
+		throw new Error("Order could not be updated");
+	}
+	return data;
+}

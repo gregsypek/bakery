@@ -107,6 +107,15 @@ function OrderRow({
 					>
 						See details
 					</Menus.Button>
+
+					{status === "inprogress" && (
+						<Menus.Button
+							icon={<HiEye />}
+							onClick={() => navigate(`/status/${orderId}`)}
+						>
+							Order status
+						</Menus.Button>
+					)}
 				</Menus.List>
 			</Menus.Menu>
 		</Table.Row>

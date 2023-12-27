@@ -1,6 +1,6 @@
 export const statusToTagName = {
 	new: "orange",
-	processing: "yellow",
+	inprogress: "yellow",
 	shipped: "grey",
 	delivered: "green",
 	canceled: "red",

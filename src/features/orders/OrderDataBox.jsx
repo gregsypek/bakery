@@ -11,6 +11,7 @@ import {
 } from "react-icons/hi2";
 // import Tag from "../../ui/Tag";
 import { statusToTagName } from "../status/statusTagName";
+import React from "react";
 
 const StyledOrderDataBox = styled.section`
 	display: grid;
@@ -23,7 +24,7 @@ const StyledOrderDataBox = styled.section`
 const Box = styled.div`
 	grid-column: ${(props) => `${props.start} / span ${props.colSpan}`};
 	background-color: ${(props) =>
-		`var(--color-${props.backgroundColor}-700) ` || "var(--color-brand-200)"};
+		`var(--color-${props.$backgroundcolor}-700) ` || "var(--color-brand-200)"};
 	padding: 0.2rem 1rem;
 	color: ${(props) => props.color || "var(--color-black-900)"};
 	text-transform: ${(props) => (props.text ? props.text : "uppercase")};
@@ -75,7 +76,7 @@ function OrderDataBox({ order }) {
 		<>
 			<StyledOrderDataBox>
 				{/* #1 ROW */}
-				<Box colSpan={1} start={1} backgroundColor={statusToTagName[status]}>
+				<Box colSpan={1} start={1} $backgroundcolor={statusToTagName[status]}>
 					{status.replace("-", " ")}
 				</Box>
 
@@ -94,30 +95,30 @@ function OrderDataBox({ order }) {
 					{format(new Date(deliveryDate), "EEE, MMM dd yyyy")}
 				</Box>
 				{/* #3 ROW */}
-				<Box colSpan={1} start={1} backgroundColor={"green"}>
+				<Box colSpan={1} start={1} $backgroundcolor={"green"}>
 					<HiOutlineAtSymbol />
 				</Box>
-				<Box colSpan={4} start={2} backgroundColor={"green"}>
+				<Box colSpan={4} start={2} $backgroundcolor={"green"}>
 					<p>{clientName}</p>
 				</Box>
-				<Box colSpan={2} start={6} backgroundColor={"green"}>
+				<Box colSpan={2} start={6} $backgroundcolor={"green"}>
 					<p>{email}</p>
 				</Box>
 
 				{/* #4 ROW */}
-				<Box colSpan={4} start={2} backgroundColor={"cream"}>
+				<Box colSpan={4} start={2} $backgroundcolor={"cream"}>
 					{"PRODUCT"}
 				</Box>
-				<Box colSpan={1} start={6} backgroundColor={"cream"}>
+				<Box colSpan={1} start={6} $backgroundcolor={"cream"}>
 					{"QUANTITY"}
 				</Box>
-				<Box colSpan={1} start={7} backgroundColor={"cream"}>
+				<Box colSpan={1} start={7} $backgroundcolor={"cream"}>
 					{"PRICE"}
 				</Box>
 
 				{/* #5 ROWS */}
 				{orderItems.map((item, index) => (
-					<>
+					<React.Fragment key={index}>
 						<Box colSpan={1} start={1}>
 							#{index + 1}
 						</Box>
@@ -130,55 +131,55 @@ function OrderDataBox({ order }) {
 						<Box colSpan={1} start={7} color={"brand"}>
 							{item.products.regularPrice}
 						</Box>
-					</>
+					</React.Fragment>
 				))}
 
 				{/* {#6 ROW} */}
-				<Box colSpan={4} start={2} backgroundColor={"cream"}>
+				<Box colSpan={4} start={2} $backgroundcolor={"cream"}>
 					{"TOTAL"}
 				</Box>
-				<Box colSpan={1} start={6} backgroundColor={"cream"}>
+				<Box colSpan={1} start={6} $backgroundcolor={"cream"}>
 					{orderItems.reduce((acc, cur) => {
 						return acc + cur.quantity;
 					}, 0)}
 				</Box>
-				<Box colSpan={1} start={7} backgroundColor={"cream"}>
+				<Box colSpan={1} start={7} $backgroundcolor={"cream"}>
 					{totalPriceWithoutDelivery}
 				</Box>
 
 				{/* #7 ROW */}
-				<Box colSpan={1} start={1} backgroundColor={"beige"}>
+				<Box colSpan={1} start={1} $backgroundcolor={"beige"}>
 					<HiOutlineTruck />
 				</Box>
-				<Box colSpan={4} start={2} backgroundColor={"beige"}>
+				<Box colSpan={4} start={2} $backgroundcolor={"beige"}>
 					{"Delivery included?"}
 				</Box>
-				<Box colSpan={1} start={6} color={"brand"} backgroundColor={"beige"}>
+				<Box colSpan={1} start={6} color={"brand"} $backgroundcolor={"beige"}>
 					{hasDelivery ? "Yes" : "No"}
 				</Box>
-				<Box colSpan={1} start={7} color={"brand"} backgroundColor={"beige"}>
+				<Box colSpan={1} start={7} color={"brand"} $backgroundcolor={"beige"}>
 					{hasDelivery ? settings.deliveryFee : 0}
 				</Box>
 
 				{/* #8 ROW */}
-				<Box colSpan={1} start={1} backgroundColor={"beige"}>
+				<Box colSpan={1} start={1} $backgroundcolor={"beige"}>
 					<HiOutlineCreditCard />
 				</Box>
-				<Box colSpan={3} start={2} backgroundColor={"beige"}>
+				<Box colSpan={3} start={2} $backgroundcolor={"beige"}>
 					{"Is Paid?"}
 				</Box>
-				<Box colSpan={1} start={5} color={"brand"} backgroundColor={"beige"}>
+				<Box colSpan={1} start={5} color={"brand"} $backgroundcolor={"beige"}>
 					{isPaid ? "Yes" : "No"}
 				</Box>
-				<Box colSpan={2} start={6} color={"brand"} backgroundColor={"beige"}>
+				<Box colSpan={2} start={6} color={"brand"} $backgroundcolor={"beige"}>
 					{isPaid ? "ALREADY PAID" : "WILL PAY AT BAKERY"}
 				</Box>
 
 				{/* {#9 ROW} */}
-				<Box colSpan={4} start={2} color={"white"} backgroundColor={"black"}>
+				<Box colSpan={4} start={2} color={"white"} $backgroundcolor={"black"}>
 					{"FINAL PRICE"}
 				</Box>
-				<Box colSpan={2} start={6} color={"white"} backgroundColor={"black"}>
+				<Box colSpan={2} start={6} color={"white"} $backgroundcolor={"black"}>
 					{totalPriceWithoutDelivery + (hasDelivery ? settings.deliveryFee : 0)}
 				</Box>
 			</StyledOrderDataBox>
