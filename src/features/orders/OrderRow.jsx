@@ -6,7 +6,7 @@ import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 import Tag from "../../ui/Tag";
 import PropTypes from "prop-types";
 import Menus from "../../ui/Menus";
-import { HiEye } from "react-icons/hi2";
+import { HiEye, HiMiniCog6Tooth } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { statusToTagName } from "../status/statusTagName";
 
@@ -108,9 +108,9 @@ function OrderRow({
 						See details
 					</Menus.Button>
 
-					{status !== "shipped" && (
+					{status !== "delivered" && (
 						<Menus.Button
-							icon={<HiEye />}
+							icon={<HiMiniCog6Tooth />}
 							onClick={() => navigate(`/status/${orderId}`)}
 						>
 							Order status

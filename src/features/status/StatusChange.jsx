@@ -33,14 +33,10 @@ function StatusChange() {
 	const [confirmCompleted, setConfirmCompleted] = useState(false);
 	const [confirmInprogress, setConfirmInprogress] = useState(false);
 	const [confirmShipped, setConfirmShipped] = useState(false);
+	const [confirmDelivered, setConfirmDelivered] = useState(false);
 
 	const { statusChanged, isStatusChanged } = useStatusChange();
-	console.log(
-		"🚀 ~ file: StatusChange.jsx:32 ~ StatusChange ~ statusChanged:",
-		statusChanged
-	);
 
-	// const navigate = useNavigate();
 	const moveBack = useMoveBack();
 
 	useEffect(() => {
@@ -48,22 +44,31 @@ function StatusChange() {
 		setConfirmInprogress(order?.status === "inprogress" || false);
 		setConfirmCompleted(order?.status === "completed" || false);
 		setConfirmShipped(order?.status === "shipped" || false);
+		setConfirmDelivered(order?.status === "delivered" || false);
 	}, [order, setConfirmNew]);
 
 	if (isLoading) return <Spinner />;
 	if (!order) return <Empty resource="order" />;
 	console.log("🚀 ~ file: StatusChange.jsx:55 ~ StatusChange ~ order:", order);
 
-	const { id: orderId, status } = order;
+	const { id: orderId, status, hasDelivery } = order;
 
 	function handleChangeStatus() {
+		console.log(
+			"🚀 ~ file: StatusChange.jsx:70 ~ handleChangeStatus ~ hasDelivery:",
+			hasDelivery
+		);
 		// if (status === "inprogress") statusCompleted(orderId);//version_1
 		if (status === "new")
 			statusChanged.mutate({ orderId, status: "inprogress" });
 		if (status === "inprogress")
 			statusChanged.mutate({ orderId, status: "completed" });
-		if (status === "completed")
+		if (status === "completed" && hasDelivery)
 			statusChanged.mutate({ orderId, status: "shipped" });
+		if (status === "completed" && !hasDelivery)
+			statusChanged.mutate({ orderId, status: "delivered" });
+		if (status === "shipped")
+			statusChanged.mutate({ orderId, status: "delivered" });
 	}
 
 	return (
@@ -95,13 +100,33 @@ function StatusChange() {
 					I confirm that order #{orderId} is now completed
 				</Checkbox>
 			)}
-			{status === "completed" && (
+
+			{status === "completed" && hasDelivery && (
 				<Checkbox
 					checked={confirmShipped}
 					onChange={() => setConfirmShipped((confirm) => !confirm)}
 					id="confirm shipped"
 				>
 					I confirm that order #{orderId} is now shipped
+				</Checkbox>
+			)}
+			{status === "completed" && !hasDelivery && (
+				<Checkbox
+					checked={confirmDelivered}
+					onChange={() => setConfirmDelivered((confirm) => !confirm)}
+					id="confirm delivered"
+				>
+					I confirm that order #{orderId} is now delivered{" "}
+					{console.log("hasDelivery", hasDelivery)}
+				</Checkbox>
+			)}
+			{status === "shipped" && (
+				<Checkbox
+					checked={confirmDelivered}
+					onChange={() => setConfirmDelivered((confirm) => !confirm)}
+					id="confirm "
+				>
+					I confirm that order #{orderId} is now delivered
 				</Checkbox>
 			)}
 			<ButtonGroup>
@@ -121,7 +146,8 @@ function StatusChange() {
 						Change status
 					</Button>
 				)}
-				{status === "completed" && (
+
+				{status === "completed" && hasDelivery && (
 					<Button
 						onClick={handleChangeStatus}
 						disabled={!confirmShipped || isStatusChanged}
@@ -129,14 +155,22 @@ function StatusChange() {
 						Change status
 					</Button>
 				)}
-				{/* {status === "shipped" && (
+				{status === "completed" && !hasDelivery && (
 					<Button
 						onClick={handleChangeStatus}
-						disabled={!confirmShipped || isStatusChanged}
+						disabled={!confirmDelivered || isStatusChanged}
 					>
 						Change status
 					</Button>
-				)} */}
+				)}
+				{status === "shipped" && (
+					<Button
+						onClick={handleChangeStatus}
+						disabled={!confirmDelivered || isStatusChanged}
+					>
+						Change status
+					</Button>
+				)}
 
 				<Button $variation="secondary" onClick={moveBack}>
 					Back

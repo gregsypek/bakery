@@ -42,16 +42,16 @@ function OrderDetail() {
 			</Row>
 			<OrderDataBox order={order} />
 			<ButtonGroup>
-				{/* {status !== "delivered" && (
-					<Button onClick={() => navigate(`/status/${orderId}`)}>
-						Change status here
-					</Button>
-				)} */}
-				{status !== "shipped" && (
+				{status !== "delivered" && (
 					<Button onClick={() => navigate(`/status/${orderId}`)}>
 						Change status here
 					</Button>
 				)}
+				{/* {status !== "shipped" && (
+					<Button onClick={() => navigate(`/status/${orderId}`)}>
+						Change status here
+					</Button>
+				)} */}
 
 				<Button $variation="secondary" onClick={moveBack}>
 					Back
