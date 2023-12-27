@@ -15,7 +15,7 @@ import { useOrder } from "../orders/useOrder";
 import OrderDataBox from "../orders/OrderDataBox";
 import { useEffect, useState } from "react";
 import Checkbox from "../../ui/Checkbox";
-import { useStatusCompleted } from "./useStatusCompleted";
+import { useStatusChange } from "./useStatusChange";
 
 const HeadingGroup = styled.div`
 	display: flex;
@@ -25,11 +25,14 @@ const HeadingGroup = styled.div`
 
 function StatusChange() {
 	const { order, isLoading } = useOrder();
-	console.log("🚀 ~ file: StatusChange.jsx:26 ~ StatusChange ~ order:", order);
 	const [confirmCompleted, setConfirmCompleted] = useState(false);
 	const [confirmInprogress, setConfirmInprogress] = useState(false);
 
-	const { statusCompleted, isStatusCompleted } = useStatusCompleted();
+	const { statusChanged, isStatusChanged } = useStatusChange();
+	console.log(
+		"🚀 ~ file: StatusChange.jsx:32 ~ StatusChange ~ statusChanged:",
+		statusChanged
+	);
 
 	// const navigate = useNavigate();
 
@@ -46,7 +49,9 @@ function StatusChange() {
 	const { id: orderId, status } = order;
 
 	function handleChangeStatus() {
-		if (status === "inprogress") statusCompleted(orderId);
+		// if (status === "inprogress") statusCompleted(orderId);//version_1
+		if (status === "inprogress")
+			statusChanged.mutate({ orderId, status: "completed" });
 	}
 
 	return (
@@ -83,12 +88,11 @@ function StatusChange() {
 			<ButtonGroup>
 				{status !== "shipped" && (
 					<Button
-						// onClick={() => navigate(`/status/${orderId}`)}
 						onClick={handleChangeStatus}
 						disabled={
 							(!confirmCompleted && status !== "new") ||
 							(status === "new" && !confirmInprogress) ||
-							isStatusCompleted
+							isStatusChanged
 						}
 					>
 						Change status {console.log("confirmCompleted", confirmCompleted)}

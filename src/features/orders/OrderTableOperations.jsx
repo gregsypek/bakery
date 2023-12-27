@@ -11,7 +11,6 @@ function OrderTableOperations() {
 					{ value: "all", label: "All" },
 					{ value: "new", label: "New" },
 					{ value: "inprogress", label: "Inprogress" },
-
 					{ value: "shipped", label: "Shipped" },
 					{ value: "canceled", label: "Canceled" },
 					{ value: "completed", label: "Completed" },

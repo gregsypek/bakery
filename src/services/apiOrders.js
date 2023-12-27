@@ -79,7 +79,7 @@ export async function updateOrder(id, obj) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("Order could not be updated");
+		throw new Error(`Order could not be updated", ${error.message}`);
 	}
 	return data;
 }

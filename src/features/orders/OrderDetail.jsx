@@ -13,7 +13,6 @@ import Empty from "../../ui/Empty";
 // import { statusToTagName } from "../status/statusTagName";
 import OrderDataBox from "./OrderDataBox";
 import { useNavigate } from "react-router-dom";
-// import { useStatusCompleted } from "../status/useStatusCompleted";
 
 const HeadingGroup = styled.div`
 	display: flex;
