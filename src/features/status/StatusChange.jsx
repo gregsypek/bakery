@@ -14,8 +14,10 @@ import Empty from "../../ui/Empty";
 import { useOrder } from "../orders/useOrder";
 import OrderDataBox from "../orders/OrderDataBox";
 import { useEffect, useState } from "react";
-import Checkbox from "../../ui/Checkbox";
+// import Checkbox from "../../ui/Checkbox";
 import { useStatusChange } from "./useStatusChange";
+import { ConfirmationCheckbox } from "./ConfirmationCheckbox";
+import { ChangeStatusButton } from "./ChangeStatusButton";
 
 const HeadingGroup = styled.div`
 	display: flex;
@@ -83,93 +85,76 @@ function StatusChange() {
 			<OrderDataBox order={order} />
 
 			{status === "new" && (
-				<Checkbox
+				<ConfirmationCheckbox
 					checked={confirmInprogress}
 					onChange={() => setConfirmInprogress((confirm) => !confirm)}
-					id="confirm progress"
-				>
-					I confirm that order #{orderId} is now in progress
-				</Checkbox>
+					label={`I confirm that order #{orderId} is now in progress`}
+				/>
 			)}
 			{status === "inprogress" && (
-				<Checkbox
+				<ConfirmationCheckbox
 					checked={confirmCompleted}
 					onChange={() => setConfirmCompleted((confirm) => !confirm)}
-					id="confirm completed"
-				>
-					I confirm that order #{orderId} is now completed
-				</Checkbox>
+					label={`I confirm that order #{orderId} is now completed`}
+				/>
 			)}
 
 			{status === "completed" && hasDelivery && (
-				<Checkbox
+				<ConfirmationCheckbox
 					checked={confirmShipped}
 					onChange={() => setConfirmShipped((confirm) => !confirm)}
-					id="confirm shipped"
-				>
-					I confirm that order #{orderId} is now shipped
-				</Checkbox>
+					label={`I confirm that order #{orderId} is now shipped`}
+				/>
 			)}
+
 			{status === "completed" && !hasDelivery && (
-				<Checkbox
+				<ConfirmationCheckbox
 					checked={confirmDelivered}
 					onChange={() => setConfirmDelivered((confirm) => !confirm)}
-					id="confirm delivered"
-				>
-					I confirm that order #{orderId} is now delivered{" "}
-					{console.log("hasDelivery", hasDelivery)}
-				</Checkbox>
+					label={`I confirm that order #{orderId} is now delivered`}
+				/>
 			)}
+
 			{status === "shipped" && (
-				<Checkbox
+				<ConfirmationCheckbox
 					checked={confirmDelivered}
 					onChange={() => setConfirmDelivered((confirm) => !confirm)}
-					id="confirm "
-				>
-					I confirm that order #{orderId} is now delivered
-				</Checkbox>
+					label={`I confirm that order #{orderId} is now delivered`}
+				/>
 			)}
+
 			<ButtonGroup>
 				{status === "new" && (
-					<Button
+					<ChangeStatusButton
 						onClick={handleChangeStatus}
 						disabled={!confirmInprogress || isStatusChanged}
-					>
-						Change status
-					</Button>
+					/>
 				)}
+
 				{status === "inprogress" && (
-					<Button
+					<ChangeStatusButton
 						onClick={handleChangeStatus}
 						disabled={!confirmCompleted || isStatusChanged}
-					>
-						Change status
-					</Button>
+					/>
 				)}
 
 				{status === "completed" && hasDelivery && (
-					<Button
+					<ChangeStatusButton
 						onClick={handleChangeStatus}
 						disabled={!confirmShipped || isStatusChanged}
-					>
-						Change status
-					</Button>
+					/>
 				)}
 				{status === "completed" && !hasDelivery && (
-					<Button
+					<ChangeStatusButton
 						onClick={handleChangeStatus}
 						disabled={!confirmDelivered || isStatusChanged}
-					>
-						Change status
-					</Button>
+					/>
 				)}
 				{status === "shipped" && (
-					<Button
+					<ChangeStatusButton
 						onClick={handleChangeStatus}
 						disabled={!confirmDelivered || isStatusChanged}
-					>
-						Change status
-					</Button>
+					/>
 				)}
 
 				<Button $variation="secondary" onClick={moveBack}>
