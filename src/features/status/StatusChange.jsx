@@ -15,10 +15,12 @@ import { useOrder } from "../orders/useOrder";
 import OrderDataBox from "../orders/OrderDataBox";
 import { useEffect, useState } from "react";
 // import Checkbox from "../../ui/Checkbox";
-import { useStatusChange } from "./useStatusChange";
+import { usePaymentChange } from "./usePaymentChange";
 import { ConfirmationCheckbox } from "./ConfirmationCheckbox";
 import { ChangeStatusButton } from "./ChangeStatusButton";
 import { statusToTagName } from "./statusTagName";
+import Checkbox from "../../ui/Checkbox";
+import { useStatusChange } from "./useStatusChange";
 
 const HeadingGroup = styled.div`
 	display: flex;
@@ -28,6 +30,7 @@ const HeadingGroup = styled.div`
 
 function StatusChange() {
 	const { order, isLoading } = useOrder();
+	console.log("🚀 ~ file: StatusChange.jsx:32 ~ StatusChange ~ order:", order);
 	const [confirmNew, setConfirmNew] = useState(false);
 	console.log(
 		"🚀 ~ file: StatusChange.jsx:29 ~ StatusChange ~ confirmNew:",
@@ -37,12 +40,19 @@ function StatusChange() {
 	const [confirmInprogress, setConfirmInprogress] = useState(false);
 	const [confirmShipped, setConfirmShipped] = useState(false);
 	const [confirmDelivered, setConfirmDelivered] = useState(false);
+	const [confirmPaid, setConfirmPaid] = useState(false);
+	console.log(
+		"🚀 ~ file: StatusChange.jsx:43 ~ StatusChange ~ confirmPaid:",
+		confirmPaid
+	);
 
 	const { statusChanged, isStatusChanged } = useStatusChange();
+	const { paymentChanged, isPaymentChanged } = usePaymentChange();
 
 	const moveBack = useMoveBack();
 
 	useEffect(() => {
+		setConfirmPaid(order?.isPaid ?? false);
 		setConfirmNew(order?.status === "new" || false);
 		setConfirmInprogress(order?.status === "inprogress" || false);
 		setConfirmCompleted(order?.status === "completed" || false);
@@ -54,7 +64,7 @@ function StatusChange() {
 	if (!order) return <Empty resource="order" />;
 	console.log("🚀 ~ file: StatusChange.jsx:55 ~ StatusChange ~ order:", order);
 
-	const { id: orderId, status, hasDelivery } = order;
+	const { id: orderId, status, hasDelivery, isPaid } = order;
 
 	const allStatusKeysInOrder = Object.keys(statusToTagName);
 
@@ -112,17 +122,36 @@ function StatusChange() {
 			</Row>
 			<OrderDataBox order={order} />
 
-			{statusConfig[status] && (
-				<ConfirmationCheckbox
-					checked={statusConfig[status].confirmationCheckbox}
-					onChange={() =>
-						statusConfig[status].confirmationSetter((confirm) => !confirm)
-					}
-					label={statusConfig[status].label}
-				/>
+			{!isPaid && (
+				<Row type="horizontal">
+					<Checkbox
+						checked={confirmPaid}
+						onChange={() => setConfirmPaid((confirm) => !confirm)}
+						disabled={confirmPaid || isStatusChanged}
+						id="confirm"
+					>
+						I confirm that {order.clients.fullName} has paid the final price
+					</Checkbox>
+					<Button
+						onClick={() =>
+							paymentChanged.mutate({ orderId, isPaid: confirmPaid })
+						}
+						disabled={isPaymentChanged || !confirmPaid}
+					>
+						Accept payment
+					</Button>
+				</Row>
 			)}
-
-			<ButtonGroup>
+			<Row type="horizontal">
+				{statusConfig[status] && (
+					<ConfirmationCheckbox
+						checked={statusConfig[status].confirmationCheckbox}
+						onChange={() =>
+							statusConfig[status].confirmationSetter((confirm) => !confirm)
+						}
+						label={statusConfig[status].label}
+					/>
+				)}
 				{allStatusKeysInOrder.map(
 					(statusKey) =>
 						statusKey === status && (
@@ -136,7 +165,9 @@ function StatusChange() {
 							/>
 						)
 				)}
+			</Row>
 
+			<ButtonGroup>
 				<Button $variation="secondary" onClick={moveBack}>
 					Back
 				</Button>
