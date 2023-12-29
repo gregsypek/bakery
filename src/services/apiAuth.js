@@ -9,3 +9,16 @@ export async function login({ email, password }) {
 	if (error) throw new Error(error.message);
 	return data;
 }
+
+export async function getCurrentUser() {
+	const { data: session } = await supabase.auth.getSession();
+	if (!session.session) return null;
+
+	//downlad data from supabase not from session better approach - more secure
+	const { data, error } = await supabase.auth.getUser();
+
+	console.log(data);
+	if (error) throw new Error(error.message);
+
+	return data?.user;
+}
