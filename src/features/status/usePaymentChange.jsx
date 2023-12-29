@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateOrder } from "../../services/apiOrders";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export function usePaymentChange() {
 	const queryClient = useQueryClient();
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const paymentChanged = useMutation(
 		({ orderId, isPaid }) => updateOrder(orderId, { isPaid }), //The first argument is a function that will be invoked when the mutation is triggered.
@@ -17,7 +17,7 @@ export function usePaymentChange() {
 					}.`
 				);
 				queryClient.invalidateQueries({ active: true });
-				navigate("/");
+				// navigate("/");
 			},
 			onError: () => {
 				console.error("Error while updating payment");

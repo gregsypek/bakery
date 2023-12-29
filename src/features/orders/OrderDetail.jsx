@@ -13,6 +13,9 @@ import Empty from "../../ui/Empty";
 // import { statusToTagName } from "../status/statusTagName";
 import OrderDataBox from "./OrderDataBox";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteOrder } from "./useDeleteOrder";
 
 const HeadingGroup = styled.div`
 	display: flex;
@@ -23,7 +26,7 @@ const HeadingGroup = styled.div`
 function OrderDetail() {
 	const { order, isLoading } = useOrder();
 	const navigate = useNavigate();
-
+	const { deleteOrder, isDeleting } = useDeleteOrder();
 	const moveBack = useMoveBack();
 
 	if (isLoading) return <Spinner />;
@@ -42,18 +45,29 @@ function OrderDetail() {
 			</Row>
 			<OrderDataBox order={order} />
 			<ButtonGroup>
+				{/* <Button onClick={() => {}}>{`Delete Order #${orderId}`}</Button> */}
+				<Modal>
+					<Modal.Open opens={"delete"}>
+						<Button $variation="danger">{`Delete Order #${orderId}`}</Button>
+					</Modal.Open>
+					<Modal.Window name={"delete"}>
+						{/* NOTE: onSettled is invoke both when there is error or success  */}
+						<ConfirmDelete
+							resourceName="order"
+							onConfirm={() =>
+								deleteOrder(orderId, { onSettled: () => navigate(-1) })
+							}
+							disabled={isDeleting}
+						/>
+					</Modal.Window>
+				</Modal>
 				{status !== "delivered" && (
 					<Button onClick={() => navigate(`/status/${orderId}`)}>
 						Change status here
 					</Button>
 				)}
-				{/* {status !== "shipped" && (
-					<Button onClick={() => navigate(`/status/${orderId}`)}>
-						Change status here
-					</Button>
-				)} */}
 
-				<Button $variation="secondary" onClick={moveBack}>
+				<Button $variation="empty" onClick={moveBack}>
 					Back
 				</Button>
 			</ButtonGroup>

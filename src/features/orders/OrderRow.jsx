@@ -6,9 +6,12 @@ import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 import Tag from "../../ui/Tag";
 import PropTypes from "prop-types";
 import Menus from "../../ui/Menus";
-import { HiEye, HiMiniCog6Tooth } from "react-icons/hi2";
+import { HiEye, HiMiniCog6Tooth, HiTrash } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { statusToTagName } from "../status/statusTagName";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteOrder } from "./useDeleteOrder";
 
 const Product = styled.div`
 	font-size: 1.6rem;
@@ -61,6 +64,8 @@ function OrderRow({
 		null: "orange",
 	};
 
+	const { deleteOrder, isDeleting } = useDeleteOrder();
+
 	const startDate = parseISO(created_at);
 	const endDate = parseISO(deliveryDate);
 
@@ -98,26 +103,38 @@ function OrderRow({
 				{hasDelivery ? <span>ON</span> : <span>OFF</span>}
 			</Tag>
 			<Amount>{formatCurrency(totalPrice)}</Amount>
-			<Menus.Menu>
-				<Menus.Toggle id={orderId} />
-				<Menus.List id={orderId}>
-					<Menus.Button
-						icon={<HiEye />}
-						onClick={() => navigate(`/orders/${orderId}`)}
-					>
-						See details
-					</Menus.Button>
-
-					{status !== "delivered" && (
+			<Modal>
+				<Menus.Menu>
+					<Menus.Toggle id={orderId} />
+					<Menus.List id={orderId}>
 						<Menus.Button
-							icon={<HiMiniCog6Tooth />}
-							onClick={() => navigate(`/status/${orderId}`)}
+							icon={<HiEye />}
+							onClick={() => navigate(`/orders/${orderId}`)}
 						>
-							Order status
+							See details
 						</Menus.Button>
-					)}
-				</Menus.List>
-			</Menus.Menu>
+
+						{status !== "delivered" && (
+							<Menus.Button
+								icon={<HiMiniCog6Tooth />}
+								onClick={() => navigate(`/status/${orderId}`)}
+							>
+								Order status
+							</Menus.Button>
+						)}
+						<Modal.Open opens="delete">
+							<Menus.Button icon={<HiTrash />}>Delete order</Menus.Button>
+						</Modal.Open>
+					</Menus.List>
+				</Menus.Menu>
+				<Modal.Window name={"delete"}>
+					<ConfirmDelete
+						resourceName="order"
+						onConfirm={() => deleteOrder(orderId)}
+						disabled={isDeleting}
+					/>
+				</Modal.Window>
+			</Modal>
 		</Table.Row>
 	);
 }

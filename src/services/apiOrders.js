@@ -62,10 +62,6 @@ export async function getOrder(id) {
 		settings: data,
 	};
 
-	console.log(
-		"🚀 ~ file: apiOrders.js:49 ~ getOrder ~ data:",
-		orderWithSettings
-	);
 	return orderWithSettings;
 }
 
@@ -83,3 +79,58 @@ export async function updateOrder(id, obj) {
 	}
 	return data;
 }
+
+export async function deleteOrder(id) {
+	const { data, error } = await supabase.from("orders").delete().eq("id", id);
+	if (error) {
+		console.error(error);
+		throw new Error("Order could not be deleted");
+	}
+	return data;
+}
+
+//NOTE: not working but delete cascade in supabase helps to delete like above (all related foreign keys after deletion will be deleted as well)
+
+// export async function deleteOrder(id) {
+// 	console.log("🚀 ~ file: apiProducts.js:76 ~ deleteOrder ~ id:", id);
+// 	try {
+// 		// Check if the order is referenced in the orderItems table
+// 		const { data: orderItemsData, error: orderItemsError } = await supabase
+// 			.from("orderItems")
+// 			.select("id")
+// 			.eq("orderId", id);
+
+// 		if (orderItemsError) {
+// 			console.error(orderItemsError);
+// 			throw new Error("Error checking order references in orderItems table");
+// 		}
+
+// 		console.log(
+// 			"🚀 ~ file: apiOrders.js:90 ~ deleteOrder ~ orderItemsData:",
+// 			orderItemsData
+// 		); //id24
+// 		// If order is referenced in orderItems, delete those orderItems first
+// 		if (orderItemsData && orderItemsData.length > 0) {
+// 			for (const orderItem of orderItemsData) {
+// 				console.log(
+// 					"🚀 ~ file: apiOrders.js:117 ~ deleteOrder ~  orderItem.id:",
+// 					orderItem.id
+// 				);
+// 				await supabase.from("orderItems").delete().eq("id", orderItem.id);
+// 			}
+// 		}
+
+// 		// Now, delete the order
+// 		const { data, error } = await supabase.from("orders").delete().eq("id", id);
+
+// 		if (error) {
+// 			console.error(error);
+// 			throw new Error("Order could not be deleted");
+// 		}
+
+// 		return data;
+// 	} catch (error) {
+// 		console.error(error);
+// 		throw new Error("Error deleting order");
+// 	}
+// }
