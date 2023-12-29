@@ -52,6 +52,7 @@ function OrderDetail() {
 					</Modal.Open>
 					<Modal.Window name={"delete"}>
 						{/* NOTE: onSettled is invoke both when there is error or success  */}
+						{/* TODO: when user delete only one order on the page user should go back */}
 						<ConfirmDelete
 							resourceName="order"
 							onConfirm={() =>
