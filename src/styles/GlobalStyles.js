@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 :root {
   /* Brown */
+  &, &.light-mode {// "&," -  works with no class as well
 
   --color-brand-100: #FCFCF0;
   --color-brand-200: #FEF7DB;
@@ -13,8 +14,8 @@ const GlobalStyles = createGlobalStyle`
   --color-brand-800: #A6764F;
   --color-brand-900: #875d3b;
 
- --color-grey-300: #d1d5db;
- --color-grey-700: #a0a0a1;
+  --color-grey-300: #d1d5db;
+  --color-grey-700: #a0a0a1;
   --color-green-700: #9ece9e;
   --color-orange-700: #f9b376;
   --color-white-700: #ffffff;
@@ -40,15 +41,25 @@ const GlobalStyles = createGlobalStyle`
   --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
   
   --margin-top-sm: 2rem;
-  
+
+  --image-grayscale: 0;
+  --image-opacity: 100%;
+  }
+  &.dark-mode {
+  --color-brand-100: #2B190B;
+
+  --image-grayscale: 10%;//to be less bright on dark side
+  --image-opacity: 90%;
+  //TODO: CHANGE MORE COLORS HERE 
+}
+
   --border-radius-tiny: 3px;
   --border-radius-sm: 5px;
   --border-radius-md: 7px;
   --border-radius-lg: 9px;
 
-  /* For dark mode */
-  --image-grayscale: 0;
-  --image-opacity: 100%;
+
+
 }
 
 *,
