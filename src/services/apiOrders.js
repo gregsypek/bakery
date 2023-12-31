@@ -1,4 +1,5 @@
 import { PAGE_SIZE } from "../utils/constants";
+import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getOrders({ filter, sortBy, page }) {
@@ -134,3 +135,34 @@ export async function deleteOrder(id) {
 // 		throw new Error("Error deleting order");
 // 	}
 // }
+
+//Returns all ORDERS that were created after the given date. Useful to get orders created in the last 30 days, for example. date must be in ISOString.
+
+export async function getOrderSalesAfterDate(date) {
+	const { data, error } = await supabase
+		.from("orders")
+		.select("created_at,totalPrice, extrasPrice")
+		.gte("created_at", date)
+		.lte("created_at", getToday({ end: true }));
+
+	if (error) {
+		console.error(error);
+		throw new Error("Orders could not get loaded");
+	}
+	return data;
+}
+
+//Returns all Orders for table with client table
+export async function getOrderAfterDate(date) {
+	const { data, error } = await supabase
+		.from("orders")
+		.select("*, clients(fullName)")
+		.gte("created_at", date)
+		.lte("created_at", getToday({ end: true }));
+
+	if (error) {
+		console.error(error);
+		throw new Error("Orders could not get loaded");
+	}
+	return data;
+}

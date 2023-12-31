@@ -20,6 +20,7 @@ export const getToday = function (options = {}) {
 	if (options?.end)
 		// Set to the last second of the day
 		today.setUTCHours(23, 59, 59, 999);
+	//The setUTCHours() method of Date instances changes the hours, minutes, seconds, and/or milliseconds for this date according to universal time. - we need this so it doesn't change after every milisecond - time flies :)
 	else today.setUTCHours(0, 0, 0, 0);
 	return today.toISOString();
 };
