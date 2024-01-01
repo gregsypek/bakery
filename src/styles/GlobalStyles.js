@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
 
   --color-grey-300: #d1d5db;
   --color-grey-700: #a0a0a1;
+  --color-grey-800: #87878c;
   --color-green-700: #9ece9e;
   --color-orange-700: #f9b376;
   --color-white-700: #ffffff;
@@ -47,7 +48,7 @@ const GlobalStyles = createGlobalStyle`
   }
   &.dark-mode {
   --color-brand-100: #2B190B;
-
+  --color-black-900: #FCFCF0;
   --image-grayscale: 10%;//to be less bright on dark side
   --image-opacity: 90%;
   //TODO: CHANGE MORE COLORS HERE 

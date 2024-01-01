@@ -18,5 +18,5 @@ export function useRecentOrdersSales() {
 		queryKey: ["orders", `last-${numDays}`],
 	});
 
-	return { isLoading, orders };
+	return { isLoading, orders, numDays };
 }

@@ -3,6 +3,7 @@ import { useRecentOrdersSales } from "./useRecentOrdersSales";
 import Spinner from "../../ui/Spinner";
 import { useRecentOrders } from "./useRecentOrders";
 import Stats from "./Stats";
+import SalesChart from "./SalesChart";
 
 const StyledDashboardLayout = styled.div`
 	display: grid;
@@ -18,7 +19,7 @@ const StyledDashboardLayout = styled.div`
 `;
 
 function DashboardLayout() {
-	const { orders, isLoading } = useRecentOrdersSales();
+	const { orders, isLoading, numDays } = useRecentOrdersSales();
 	console.log(
 		"🚀 ~ file: DashboardLayout.jsx:15 ~ DashboardLayout ~ orders:",
 		orders
@@ -42,6 +43,9 @@ function DashboardLayout() {
 	return (
 		<StyledDashboardLayout>
 			<Stats orders={orders} inProgress={inProgress} completed={completed} />
+			<div>Today</div>
+			<div>Chart</div>
+			<SalesChart orders={orders} numDays={numDays} />
 		</StyledDashboardLayout>
 	);
 }
