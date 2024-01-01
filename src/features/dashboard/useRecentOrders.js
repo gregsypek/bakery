@@ -22,5 +22,9 @@ export function useRecentOrders() {
 		(order) => order.status === "inprogress"
 	);
 
-	return { isLoading, ordersData, inProgress };
+	const completed = ordersData?.filter((order) =>
+		["completed", "shipped", "delivered"].includes(order.status)
+	);
+
+	return { isLoading, ordersData, inProgress, completed };
 }

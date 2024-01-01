@@ -27,7 +27,7 @@ const GlobalStyles = createGlobalStyle`
   --color-grey-700: #cfd0c6;
   --color-blue-700: #c0eff8;
   --color-blue-900: #1467a6;
-    --color-red-700: #F8A99E;
+  --color-red-700: #F8A99E;
   --color-red-800: #c21111;
   --color-red-900: #a21c1c;
 
@@ -57,6 +57,7 @@ const GlobalStyles = createGlobalStyle`
   --border-radius-sm: 5px;
   --border-radius-md: 7px;
   --border-radius-lg: 9px;
+  --border-radius-xl: 15px;
 
 
 

@@ -2,12 +2,19 @@ import styled from "styled-components";
 import { useRecentOrdersSales } from "./useRecentOrdersSales";
 import Spinner from "../../ui/Spinner";
 import { useRecentOrders } from "./useRecentOrders";
+import Stats from "./Stats";
 
 const StyledDashboardLayout = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: auto 34rem auto;
 	gap: 2.4rem;
+
+	> :first-child {
+		/* grid-row: 1 / span 1; */
+		grid-column: 1/-1;
+		/* This sets the element to cover the first row */
+	}
 `;
 
 function DashboardLayout() {
@@ -20,6 +27,7 @@ function DashboardLayout() {
 		ordersData,
 		isLoading: isLoadingData,
 		inProgress,
+		completed,
 	} = useRecentOrders();
 	console.log(
 		"🚀 ~ file: DashboardLayout.jsx:20 ~ DashboardLayout ~ inProgress:",
@@ -33,10 +41,7 @@ function DashboardLayout() {
 	if (isLoading || isLoadingData) return <Spinner />;
 	return (
 		<StyledDashboardLayout>
-			<div className="">Statistics</div>
-			<div className="">Todays activity</div>
-			<div className="">Chart order progress</div>
-			<div className="">chart sales</div>
+			<Stats orders={orders} inProgress={inProgress} completed={completed} />
 		</StyledDashboardLayout>
 	);
 }
