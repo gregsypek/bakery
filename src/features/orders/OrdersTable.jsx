@@ -10,8 +10,7 @@ function OrdersTable() {
 	const { orders, isLoading, count } = useOrders();
 
 	if (isLoading) return <Spinner />;
-
-	if (!orders?.length) return <Empty resourceName="orders" />;
+	if (!orders.length) return <Empty resourceName="orders" />;
 
 	return (
 		<Menus>

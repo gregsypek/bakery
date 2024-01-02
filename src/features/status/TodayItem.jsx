@@ -8,7 +8,7 @@ import Tag from "../../ui/Tag";
 
 const StyledTodayItem = styled.li`
 	display: grid;
-	grid-template-columns: 9rem 2rem 1fr 2rem 12rem;
+	grid-template-columns: 12rem 2rem 1fr 2rem 12rem;
 	gap: 1.2rem;
 	align-items: center;
 
