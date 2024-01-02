@@ -11,7 +11,7 @@ const StyledDashboardLayout = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: auto 34rem auto;
-	gap: 2.4rem;
+	gap: 3.4rem;
 
 	> :first-child {
 		/* grid-row: 1 / span 1; */
@@ -24,17 +24,17 @@ function DashboardLayout() {
 	const { orders, isLoading, numDays } = useRecentOrdersSales();
 
 	const {
-		ordersData,
+		// ordersData,
 		isLoading: isLoadingData,
 		inProgress,
 		completed,
 		categories,
 	} = useRecentOrders();
 
-	console.log(
-		"🚀 ~ file: DashboardLayout.jsx:20 ~ DashboardLayout ~ ordersData:",
-		ordersData
-	);
+	// console.log(
+	// 	"🚀 ~ file: DashboardLayout.jsx:20 ~ DashboardLayout ~ ordersData:",
+	// 	ordersData
+	// );
 
 	if (isLoading || isLoadingData) return <Spinner />;
 	return (

@@ -17,11 +17,11 @@ function Stats({ orders, inProgress, completed }) {
 	`;
 
 	//1.
-	const numOrders = orders.length;
+	const numOrders = orders?.length;
 	//2.
-	const sales = orders.reduce((acc, cur) => acc + cur.totalPrice, 0);
+	const sales = orders?.reduce((acc, cur) => acc + cur.totalPrice, 0);
 	//3.
-	const inprogress = inProgress.length;
+	const inprogress = inProgress?.length;
 	//4
 	const completedRate = completed?.length / orders?.length;
 

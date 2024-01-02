@@ -215,6 +215,5 @@ export async function getOrdersTodayActivity() {
 		throw new Error("Orders could not get loaded");
 	}
 
-	console.log("🚀 ~ getOrdersSinceYesterday ~ data:", data);
 	return data;
 }

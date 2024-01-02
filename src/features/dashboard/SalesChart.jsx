@@ -44,10 +44,10 @@ function SalesChart({ orders, numDays }) {
 		return {
 			label: format(date, "MMM dd"),
 			totalSales: orders
-				.filter((order) => isSameDay(date, new Date(order.created_at)))
+				?.filter((order) => isSameDay(date, new Date(order.created_at)))
 				.reduce((acc, cur) => acc + cur.totalPrice, 0),
 			extrasSales: orders
-				.filter((order) => isSameDay(date, new Date(order.created_at)))
+				?.filter((order) => isSameDay(date, new Date(order.created_at)))
 				.reduce((acc, cur) => acc + cur.extrasPrice, 0),
 		};
 	});
