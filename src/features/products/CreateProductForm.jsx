@@ -30,8 +30,8 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 			updateProduct(
 				{ newProductData: { ...data, image }, productId: editId },
 				{
-					onSuccess: (data) => {
-						console.log("update", data), reset();
+					onSuccess: () => {
+						reset();
 						onCloseModal?.();
 					},
 				}
@@ -40,8 +40,8 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 			createProduct(
 				{ ...data, image: image },
 				{
-					onSuccess: (data) => {
-						console.log("create", data), reset();
+					onSuccess: () => {
+						reset();
 						onCloseModal?.();
 					},
 				}

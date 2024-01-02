@@ -93,6 +93,8 @@ function Toggle({ id }) {
 
 	function handleClick(e) {
 		e.stopPropagation();
+		const scrollX = window.scrollX || window.pageXOffset;
+		const scrollY = window.scrollY || window.pageYOffset;
 		const rect = e.target.closest("button").getBoundingClientRect();
 		setPosition({
 			x: window.innerWidth - rect.width - rect.x + scrollX,
