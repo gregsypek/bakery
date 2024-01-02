@@ -92,14 +92,11 @@ function prepareData(startData, categories) {
 			obj.category === field ? { ...obj, value: obj.value + 1 } : obj
 		);
 	}
-	console.log(
-		"🚀 ~ file: CategoryChart.jsx:96 ~ incArrayValue ~ incArrayValue:",
-		incArrayValue
-	);
+
 	const data = categories
 		.reduce((arr, cur) => {
 			const cat = cur;
-			console.log("🚀 ~ file: CategoryChart.jsx:107 ~ .reduce ~ cat:", cat);
+
 			if (cat === "bakery") return incArrayValue(arr, "bakery");
 			if (cat === "dumplings") return incArrayValue(arr, "dumplings");
 			if (cat === "fish") return incArrayValue(arr, "fish");
@@ -110,7 +107,6 @@ function prepareData(startData, categories) {
 		}, startData)
 		.filter((obj) => obj.value > 0);
 
-	console.log("🚀 ~ file: CategoryChart.jsx:126 ~ prepareData ~ data:", data);
 	return data;
 }
 

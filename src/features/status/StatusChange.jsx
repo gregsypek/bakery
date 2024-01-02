@@ -30,7 +30,7 @@ const HeadingGroup = styled.div`
 
 function StatusChange() {
 	const { order, isLoading } = useOrder();
-	console.log("🚀 ~ file: StatusChange.jsx:32 ~ StatusChange ~ order:", order);
+
 	const [confirmNew, setConfirmNew] = useState(false);
 	console.log(
 		"🚀 ~ file: StatusChange.jsx:29 ~ StatusChange ~ confirmNew:",
@@ -41,10 +41,6 @@ function StatusChange() {
 	const [confirmShipped, setConfirmShipped] = useState(false);
 	const [confirmDelivered, setConfirmDelivered] = useState(false);
 	const [confirmPaid, setConfirmPaid] = useState(false);
-	console.log(
-		"🚀 ~ file: StatusChange.jsx:43 ~ StatusChange ~ confirmPaid:",
-		confirmPaid
-	);
 
 	const { statusChanged, isStatusChanged } = useStatusChange();
 	const { paymentChanged, isPaymentChanged } = usePaymentChange();

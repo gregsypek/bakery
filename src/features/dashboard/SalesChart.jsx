@@ -32,8 +32,6 @@ const StyledSalesChart = styled(DashboardBox)`
 // ];
 
 function SalesChart({ orders, numDays }) {
-	console.log("🚀 ~ file: SalesChart.jsx:61 ~ SalesChart ~ orders:", orders);
-	console.log("🚀 ~ file: SalesChart.jsx:61 ~ SalesChart ~ numDays:", numDays);
 	const { isDarkMode } = useDarkMode();
 
 	//Return the array of dates within the specified time interval

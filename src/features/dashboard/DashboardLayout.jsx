@@ -5,6 +5,7 @@ import { useRecentOrders } from "./useRecentOrders";
 import Stats from "./Stats";
 import SalesChart from "./SalesChart";
 import CategoryChart from "./CategoryChart";
+import TodayActivity from "../status/TodayActivity";
 
 const StyledDashboardLayout = styled.div`
 	display: grid;
@@ -21,10 +22,7 @@ const StyledDashboardLayout = styled.div`
 
 function DashboardLayout() {
 	const { orders, isLoading, numDays } = useRecentOrdersSales();
-	console.log(
-		"🚀 ~ file: DashboardLayout.jsx:15 ~ DashboardLayout ~ orders:",
-		orders
-	);
+
 	const {
 		ordersData,
 		isLoading: isLoadingData,
@@ -32,10 +30,7 @@ function DashboardLayout() {
 		completed,
 		categories,
 	} = useRecentOrders();
-	console.log(
-		"🚀 ~ file: DashboardLayout.jsx:20 ~ DashboardLayout ~ inProgress:",
-		inProgress
-	);
+
 	console.log(
 		"🚀 ~ file: DashboardLayout.jsx:20 ~ DashboardLayout ~ ordersData:",
 		ordersData
@@ -45,7 +40,7 @@ function DashboardLayout() {
 	return (
 		<StyledDashboardLayout>
 			<Stats orders={orders} inProgress={inProgress} completed={completed} />
-			{/* <div>Today</div> */}
+			<TodayActivity />
 			<CategoryChart categories={categories} />
 			<SalesChart orders={orders} numDays={numDays} />
 		</StyledDashboardLayout>

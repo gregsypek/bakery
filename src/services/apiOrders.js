@@ -1,3 +1,4 @@
+import { endOfDay, startOfDay } from "date-fns";
 import { PAGE_SIZE } from "../utils/constants";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
@@ -196,4 +197,24 @@ export async function getOrderAfterDate(date) {
 	}
 
 	return ordersData;
+}
+
+export async function getOrdersTodayActivity() {
+	const today = new Date();
+	const startOfToday = startOfDay(today);
+	const endOfToday = endOfDay(today);
+
+	const { data, error } = await supabase
+		.from("orders")
+		.select("*, clients(fullName)")
+		.gt("created_at", startOfToday.toISOString())
+		.lte("created_at", endOfToday.toISOString());
+
+	if (error) {
+		console.error(error);
+		throw new Error("Orders could not get loaded");
+	}
+
+	console.log("🚀 ~ getOrdersSinceYesterday ~ data:", data);
+	return data;
 }

@@ -20,10 +20,7 @@ function UpdateUserDataForm() {
 
 	const [fullName, setFullName] = useState(currentFullName);
 	const [avatar, setAvatar] = useState(null);
-	console.log(
-		"🚀 ~ file: UpdateUserDataForm.jsx:23 ~ UpdateUserDataForm ~ avatar:",
-		avatar
-	);
+
 
 	function handleSubmit(e) {
 		e.preventDefault();
