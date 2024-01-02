@@ -22,13 +22,13 @@ const StyledToggle = styled.button`
 	transition: all 0.2s;
 
 	&:hover {
-		background-color: var(--color-grey-700);
+		background-color: var(--color-brand-400);
 	}
 
 	& svg {
 		width: 2.4rem;
 		height: 2.4rem;
-		color: var(--color-black-800);
+		color: var(--color-black-900);
 	}
 `;
 

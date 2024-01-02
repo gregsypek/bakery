@@ -2,11 +2,17 @@
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import CreateProductForm from "./CreateProductForm";
-import ProductTable from "./ProductTable";
+import { styled } from "styled-components";
+
+// import ProductTable from "./ProductTable";
+const StyledDiv = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
 
 function AddProduct() {
 	return (
-		<div>
+		<StyledDiv>
 			<Modal>
 				<Modal.Open opens="product-form">
 					<Button>Add new product</Button>
@@ -15,14 +21,14 @@ function AddProduct() {
 					<CreateProductForm />
 				</Modal.Window>
 
-				<Modal.Open opens="table">
+				{/* <Modal.Open opens="table">
 					<Button>Show table</Button>
 				</Modal.Open>
 				<Modal.Window name="table">
 					<ProductTable />
-				</Modal.Window>
+				</Modal.Window> */}
 			</Modal>
-		</div>
+		</StyledDiv>
 	);
 }
 

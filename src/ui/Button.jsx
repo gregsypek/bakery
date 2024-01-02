@@ -27,7 +27,7 @@ const variations = {
 		border: 2px solid var(--color-brand-900);
 
 		&:hover {
-			background-color: var(--color-brand-800);
+			background-color: var(--color-black-900);
 		}
 	`,
 	secondary: css`

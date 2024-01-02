@@ -29,13 +29,12 @@ const Buttons = styled.div`
 
 const PaginationButton = styled.button`
 	background-color: ${(props) =>
-		props.active ? " var(--color-brand-200)" : "var(--color-brand-200)"};
+		props.active ? " var(--color-brand-200)" : "var(--color-brand-300)"};
 	color: ${(props) => (props.active ? " var(--color-black-900)" : "inherit")};
 	border: none;
 	border-radius: var(--border-radius-sm);
 	font-weight: 500;
 	font-size: 1.4rem;
-
 	display: flex;
 	align-items: center;
 	justify-content: center;

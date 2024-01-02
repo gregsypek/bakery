@@ -17,18 +17,19 @@ const GlobalStyles = createGlobalStyle`
   --color-grey-300: #d1d5db;
   --color-grey-700: #a0a0a1;
   --color-grey-800: #87878c;
-  --color-green-700: #9ece9e;
-  --color-orange-700: #f9b376;
+  --color-green-700: #b7dab7;
+  --color-orange-700: #f7bf8f;
   --color-white-700: #ffffff;
   --color-yellow-700: #f2f689;
   --color-brown-700: #A6764F;
   --color-black-700: #402510;
+  --color-black-600: #432610;
   --color-cream-700: #CFB494;
   
   --color-grey-700: #cfd0c6;
   --color-blue-700: #c0eff8;
   --color-blue-900: #1467a6;
-  --color-red-700: #F8A99E;
+  --color-red-700: #f4b9b1;
   --color-red-800: #c21111;
   --color-red-900: #a21c1c;
 
@@ -51,6 +52,8 @@ const GlobalStyles = createGlobalStyle`
     --color-black-800: #402510;
     --color-brand-800: #402510;
     --color-black-900: #FEF7DB;
+     --color-black-700: #e1c6b1;
+     --color-black-600: #ad8260;
     --color-brand-400: #875d3b;
     --image-grayscale: 10%;//to be less bright on dark side
     --image-opacity: 90%;

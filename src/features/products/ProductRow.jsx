@@ -36,7 +36,8 @@ const Discount = styled.div`
 	font-weight: 500;
 	padding: 0.4rem 1.2rem;
 	border-radius: 100px;
-	color: var(--color-black-900);
+	color: var(--color-black-800);
+
 	background-color: var(--color-green-700);
 `;
 const Stock = styled.div`

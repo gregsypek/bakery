@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 import Empty from "./Empty";
 
 const StyledTable = styled.div`
-	border: 1px solid var(--color-brand-400);
+	border: 2px solid var(--color-black-600);
 
 	font-size: 1.4rem;
-	background-color: var(--color-brand-200);
+	background-color: var(--color-brand-100);
+
 	border-radius: 7px;
 	overflow: hidden;
 `;
@@ -23,16 +24,19 @@ const CommonRow = styled.header`
 const StyledHeader = styled(CommonRow)`
 	padding: 1.6rem 2.4rem;
 
-	background-color: var(--color-brand-900);
-	border-bottom: 1px solid var(--color-brand-500);
+	background-color: var(--color-black-600);
+	border-bottom: 1px solid var(--color-brand-600);
+	/* outline: 2px solid var(--color-brand-600); */
 	text-transform: uppercase;
 	letter-spacing: 0.4px;
 	font-weight: 600;
+
 	color: var(--color-brand-100);
 `;
 
 const StyledBody = styled.section`
 	margin: 0.4rem 0;
+	background-color: var(--color-brand-100);
 `;
 
 const StyledRow = styled(CommonRow)`
@@ -44,7 +48,7 @@ const StyledRow = styled(CommonRow)`
 `;
 
 const Footer = styled.footer`
-	background-color: var(--color-brand-200);
+	background-color: var(--color-brand-100);
 	display: flex;
 	justify-content: center;
 	padding: 1.2rem;

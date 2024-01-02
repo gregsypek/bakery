@@ -29,7 +29,7 @@ const Stacked = styled.div`
 	}
 
 	& span:last-child {
-		color: var(--color-black-800);
+		color: var(--color-black-700);
 		font-size: 1.2rem;
 	}
 `;
