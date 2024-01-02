@@ -47,10 +47,13 @@ const GlobalStyles = createGlobalStyle`
   --image-opacity: 100%;
   }
   &.dark-mode {
-  --color-brand-100: #2B190B;
-  --color-black-900: #FCFCF0;
-  --image-grayscale: 10%;//to be less bright on dark side
-  --image-opacity: 90%;
+    --color-brand-100: #2B190B;
+    --color-black-800: #402510;
+    --color-brand-800: #402510;
+    --color-black-900: #FEF7DB;
+    --color-brand-400: #875d3b;
+    --image-grayscale: 10%;//to be less bright on dark side
+    --image-opacity: 90%;
   //TODO: CHANGE MORE COLORS HERE 
 }
 

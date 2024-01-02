@@ -3,9 +3,9 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
 const StyledFilter = styled.div`
-	border: 1px solid var(--color-grey-100);
-	background-color: var(--color-brand-800);
-	color: var(--color-brand-100);
+	border: 2px solid var(--color-brand-900);
+	background-color: var(--color-brand-100);
+	color: var(--color-black-900);
 
 	box-shadow: var(--shadow-sm);
 	border-radius: var(--border-radius-lg);
@@ -21,7 +21,8 @@ const FilterButton = styled.button`
 	${(props) =>
 		props.$active &&
 		css`
-			background-color: var(--color-brand-200);
+			background-color: var(--color-brand-800);
+			color: var(--color-black-900);
 			color: var(--color-black-900);
 		`}
 

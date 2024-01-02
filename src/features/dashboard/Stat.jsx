@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 const StyledStat = styled.div`
 	/* Box */
 	position: relative;
-	border: 3px solid var(--color-brand-200);
+	border: 2px solid var(--color-brand-200);
 	border-radius: var(--border-radius-lg);
 	color: var(--color-white-700);
 
-	padding: 1.6rem;
+	padding: 1.4rem;
 	display: flex;
 	flex-direction: column;
 	width: 20rem;

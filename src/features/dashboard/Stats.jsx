@@ -2,10 +2,13 @@ import PropTypes from "prop-types";
 import Stat from "./Stat";
 import { styled } from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function Stats({ orders, inProgress, completed }) {
+	const { isDarkMode } = useDarkMode();
+
 	const StyledBar = styled.div`
-		background-color: var(--color-black-800);
+		background-color: ${isDarkMode ? "#2B190B" : "#402510"};
 		display: flex;
 		align-items: center;
 		gap: 10%;
