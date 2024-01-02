@@ -30,7 +30,7 @@ function OrderDetail() {
 	const moveBack = useMoveBack();
 
 	if (isLoading) return <Spinner />;
-	if (!order) return <Empty resource="order" />;
+	if (!order) return <Empty resourceName="order" />;
 
 	const { id: orderId, status } = order;
 

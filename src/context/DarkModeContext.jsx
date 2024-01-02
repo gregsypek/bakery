@@ -5,7 +5,10 @@ import PropTypes from "prop-types";
 const DarkModeContext = createContext();
 
 function DarkModeProvider({ children }) {
-	const [isDarkMode, setIsDarkMode] = useLocalStorageState(false, "isDarkMode"); //hook set the state and synchronize it with local storage
+	const [isDarkMode, setIsDarkMode] = useLocalStorageState(
+		window.matchMedia("(prefers-color-scheme:dark)").matches,
+		"isDarkMode"
+	); //hook set the state and synchronize it with local storage
 
 	useEffect(() => {
 		if (isDarkMode) {
