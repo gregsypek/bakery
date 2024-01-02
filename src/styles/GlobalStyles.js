@@ -49,12 +49,19 @@ const GlobalStyles = createGlobalStyle`
   }
   &.dark-mode {
     --color-brand-100: #2B190B;
+      --color-brand-200: #1d1109;
     --color-black-800: #402510;
     --color-brand-800: #402510;
     --color-black-900: #FEF7DB;
-     --color-black-700: #e1c6b1;
-     --color-black-600: #ad8260;
+    --color-black-700: #eee2d9;
+    --color-black-600: #e1a97e;
+    --color-red-800: #ffd8d8;
     --color-brand-400: #875d3b;
+    --color-brand-700: #e1c6b1;
+    --color-green-700: #153c15;
+    --color-blue-700: #143b42;
+    --color-grey-300:#4e535b;
+    /* --color-white-700: #2B190B; */
     --image-grayscale: 10%;//to be less bright on dark side
     --image-opacity: 90%;
   //TODO: CHANGE MORE COLORS HERE 

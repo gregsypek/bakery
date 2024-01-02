@@ -3,5 +3,5 @@ export const statusToTagName = {
 	inprogress: "yellow",
 	completed: "blue",
 	shipped: "grey",
-	delivered: "green",
+	delivered: "brand",
 };

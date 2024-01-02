@@ -59,7 +59,7 @@ function OrderRow({
 	const navigate = useNavigate();
 
 	const deliveryToTagName = {
-		true: "green",
+		true: "grey",
 		false: "red",
 		null: "orange",
 	};

@@ -26,6 +26,8 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+	// const { isDarkMode } = useDarkMode();
+
 	return (
 		<DarkModeProvider>
 			<QueryClientProvider client={queryClient}>
@@ -67,8 +69,15 @@ function App() {
 							fontSize: "16px",
 							maxWidth: "500px",
 							padding: "16px 24px",
-							backgroundColor: "var(--color-brand-100)",
-							color: "var(--color-brand-900)",
+							// backgroundColor: isDarkMode
+							// 	? "var(--color-brand-100)"
+							// 	: "var(--color-brand-800)",
+							// color: isDarkMode
+							// 	? "var(--color-brand-100)"
+							// 	: "var(--color-brand-900)",
+							// // color: "var(--color-brand-900)",
+							backgroundColor: "var(--color-black-600)",
+							color: "var(--color-brand-200)",
 						},
 					}}
 				/>

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const StyledStat = styled.div`
 	/* Box */
 	position: relative;
-	border: 2px solid var(--color-brand-200);
+	border: 2px solid var(--color-white-700);
 	border-radius: var(--border-radius-lg);
 	color: var(--color-white-700);
 

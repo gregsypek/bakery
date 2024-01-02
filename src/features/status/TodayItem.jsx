@@ -56,7 +56,7 @@ function TodayItem({ activity }) {
 			{status === "inprogress" && <Tag type="yellow">In Progress</Tag>}
 			{status === "completed" && <Tag type="blue">Completed</Tag>}
 			{status === "shipped" && <Tag type="grey">Shipped</Tag>}
-			{status === "delivered" && <Tag type="green">Delivered</Tag>}
+			{status === "delivered" && <Tag type="brand">Delivered</Tag>}
 
 			<p>⊙</p>
 			<Client>{fullName}</Client>

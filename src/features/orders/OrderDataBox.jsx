@@ -26,10 +26,11 @@ const Box = styled.div`
 	background-color: ${(props) =>
 		`var(--color-${props.$backgroundcolor}-700) ` || "var(--color-brand-200)"};
 	padding: 0.2rem 1rem;
-	color: ${(props) => props.color || "var(--color-black-900)"};
+	//TODO: fix color props.color as above and change colors after
+	color: ${(props) => props.color || "var(--color-black-600)"};
 	text-transform: ${(props) => (props.text ? props.text : "uppercase")};
 	font-size: 1.6rem;
-	font-weight: 500;
+	font-weight: 400;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -76,7 +77,12 @@ function OrderDataBox({ order }) {
 		<>
 			<StyledOrderDataBox>
 				{/* #1 ROW */}
-				<Box colSpan={1} start={1} $backgroundcolor={statusToTagName[status]}>
+				<Box
+					colSpan={1}
+					start={1}
+					color={"black"}
+					$backgroundcolor={statusToTagName[status]}
+				>
 					{status.replace("-", " ")}
 				</Box>
 
@@ -106,13 +112,13 @@ function OrderDataBox({ order }) {
 				</Box>
 
 				{/* #4 ROW */}
-				<Box colSpan={4} start={2} $backgroundcolor={"cream"}>
+				<Box colSpan={4} start={2} color="black" $backgroundcolor={"cream"}>
 					{"PRODUCT"}
 				</Box>
-				<Box colSpan={1} start={6} $backgroundcolor={"cream"}>
+				<Box colSpan={1} start={6} color="black" $backgroundcolor={"cream"}>
 					{"QUANTITY"}
 				</Box>
-				<Box colSpan={1} start={7} $backgroundcolor={"cream"}>
+				<Box colSpan={1} start={7} color="black" $backgroundcolor={"cream"}>
 					{"PRICE"}
 				</Box>
 
@@ -135,15 +141,15 @@ function OrderDataBox({ order }) {
 				))}
 
 				{/* {#6 ROW} */}
-				<Box colSpan={4} start={2} $backgroundcolor={"cream"}>
+				<Box colSpan={4} start={2} color="black" $backgroundcolor={"cream"}>
 					{"TOTAL"}
 				</Box>
-				<Box colSpan={1} start={6} $backgroundcolor={"cream"}>
+				<Box colSpan={1} start={6} color="black" $backgroundcolor={"cream"}>
 					{orderItems.reduce((acc, cur) => {
 						return acc + cur.quantity;
 					}, 0)}
 				</Box>
-				<Box colSpan={1} start={7} $backgroundcolor={"cream"}>
+				<Box colSpan={1} start={7} color="black" $backgroundcolor={"cream"}>
 					{totalPriceWithoutDelivery}
 				</Box>
 
@@ -176,10 +182,10 @@ function OrderDataBox({ order }) {
 				</Box>
 
 				{/* {#9 ROW} */}
-				<Box colSpan={4} start={2} color={"white"} $backgroundcolor={"black"}>
+				<Box colSpan={4} start={2} color="black" $backgroundcolor={"cream"}>
 					{"FINAL PRICE"}
 				</Box>
-				<Box colSpan={2} start={6} color={"white"} $backgroundcolor={"black"}>
+				<Box colSpan={2} start={6} color="black" $backgroundcolor={"cream"}>
 					{totalPriceWithoutDelivery + (hasDelivery ? settings.deliveryFee : 0)}
 				</Box>
 			</StyledOrderDataBox>

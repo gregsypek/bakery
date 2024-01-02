@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ButtonText = styled.button`
-	color: var(--color-brand-800);
+	color: var(--color-black-900);
 	font-weight: 500;
 	text-align: center;
 	transition: all 0.3s;
