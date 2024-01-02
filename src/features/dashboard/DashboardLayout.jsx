@@ -4,10 +4,11 @@ import Spinner from "../../ui/Spinner";
 import { useRecentOrders } from "./useRecentOrders";
 import Stats from "./Stats";
 import SalesChart from "./SalesChart";
+import CategoryChart from "./CategoryChart";
 
 const StyledDashboardLayout = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: auto 34rem auto;
 	gap: 2.4rem;
 
@@ -29,6 +30,7 @@ function DashboardLayout() {
 		isLoading: isLoadingData,
 		inProgress,
 		completed,
+		categories,
 	} = useRecentOrders();
 	console.log(
 		"🚀 ~ file: DashboardLayout.jsx:20 ~ DashboardLayout ~ inProgress:",
@@ -43,8 +45,8 @@ function DashboardLayout() {
 	return (
 		<StyledDashboardLayout>
 			<Stats orders={orders} inProgress={inProgress} completed={completed} />
-			<div>Today</div>
-			<div>Chart</div>
+			{/* <div>Today</div> */}
+			<CategoryChart categories={categories} />
 			<SalesChart orders={orders} numDays={numDays} />
 		</StyledDashboardLayout>
 	);

@@ -6,7 +6,7 @@ export async function getOrders({ filter, sortBy, page }) {
 	let query = supabase
 		.from("orders")
 		.select(
-			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, observations, status, totalPrice, clients(fullName, email), orderItems(quantity, productId, products(name))",
+			"id, created_at, deliveryDate, extrasPrice, hasDelivery, isPaid, observations, status, totalPrice, clients(fullName, email), orderItems(quantity, productId, products(name, category))",
 			{ count: "exact" }
 		);
 
@@ -152,17 +152,48 @@ export async function getOrderSalesAfterDate(date) {
 	return data;
 }
 
-//Returns all Orders for table with client table
+// //Returns all Orders for table with client table
+// export async function getOrderAfterDate(date) {
+// 	const { data, error } = await supabase
+// 		.from("orders")
+// 		.select("*, clients(fullName)")
+// 		.gte("created_at", date)
+// 		.lte("created_at", getToday({ end: true }));
+
+// 	if (error) {
+// 		console.error(error);
+// 		throw new Error("Orders could not get loaded");
+// 	}
+// 	console.log("🚀 ~ file: apiOrders.js:169 ~ getOrderAfterDate ~ data:", data);
+// 	return data;
+// }
 export async function getOrderAfterDate(date) {
-	const { data, error } = await supabase
+	const { data: ordersData, error: ordersError } = await supabase
 		.from("orders")
 		.select("*, clients(fullName)")
 		.gte("created_at", date)
 		.lte("created_at", getToday({ end: true }));
 
-	if (error) {
-		console.error(error);
+	if (ordersError) {
+		console.error(ordersError);
 		throw new Error("Orders could not get loaded");
 	}
-	return data;
+
+	// Get category name for each order
+	for (const order of ordersData) {
+		const orderId = order.id;
+		const { data: orderItemsData, error: orderItemsError } = await supabase
+			.from("orderItems")
+			.select("products:productId(category)")
+			.eq("orderId", orderId);
+
+		if (orderItemsError) {
+			console.error(orderItemsError);
+			throw new Error("Order items could not be loaded");
+		}
+
+		order.category = orderItemsData[0]?.products?.category;
+	}
+
+	return ordersData;
 }

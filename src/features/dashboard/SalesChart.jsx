@@ -70,7 +70,10 @@ function SalesChart({ orders, numDays }) {
 
 	return (
 		<StyledSalesChart>
-			<Heading as="h2">Sales</Heading>
+			<Heading as="h2">
+				Sales from {format(allDates.at(0), "MMM dd yyyy")} &mdash;{" "}
+				{format(allDates.at(-1), "MMM dd yyyy")}
+			</Heading>
 			<ResponsiveContainer height={300} width={"100%"}>
 				<AreaChart data={data}>
 					<XAxis
@@ -111,27 +114,29 @@ function SalesChart({ orders, numDays }) {
 }
 
 SalesChart.propTypes = {
-	orders: PropTypes.arrayOf({
-		id: PropTypes.number.isRequired,
-		status: PropTypes.string,
-		hasDelivery: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.oneOf([undefined]),
-		]),
-		deliveryDate: PropTypes.string,
-		created_at: PropTypes.string,
-		totalPrice: PropTypes.number,
-		clients: PropTypes.shape({
-			fullName: PropTypes.string.isRequired,
-			email: PropTypes.string.isRequired,
-		}),
-		orderItems: PropTypes.arrayOf(
-			PropTypes.shape({
-				quantity: PropTypes.number,
-				productId: PropTypes.number,
-			})
-		),
-	}),
+	orders: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			status: PropTypes.string,
+			hasDelivery: PropTypes.oneOfType([
+				PropTypes.bool,
+				PropTypes.oneOf([undefined]),
+			]),
+			deliveryDate: PropTypes.string,
+			created_at: PropTypes.string,
+			totalPrice: PropTypes.number,
+			clients: PropTypes.shape({
+				fullName: PropTypes.string.isRequired,
+				email: PropTypes.string.isRequired,
+			}),
+			orderItems: PropTypes.arrayOf(
+				PropTypes.shape({
+					quantity: PropTypes.number,
+					productId: PropTypes.number,
+				})
+			),
+		})
+	),
 	numDays: PropTypes.number,
 };
 export default SalesChart;

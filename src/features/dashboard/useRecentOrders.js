@@ -25,6 +25,7 @@ export function useRecentOrders() {
 	const completed = ordersData?.filter((order) =>
 		["completed", "shipped", "delivered"].includes(order.status)
 	);
+	const categories = ordersData?.map((order) => order.category);
 
-	return { isLoading, ordersData, inProgress, completed };
+	return { isLoading, ordersData, inProgress, completed, categories };
 }

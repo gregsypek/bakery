@@ -52,7 +52,8 @@ function Stat({ src, title, value }) {
 Stat.propTypes = {
 	title: PropTypes.string.isRequired,
 	src: PropTypes.string.isRequired,
-	value: PropTypes.number.isRequired,
+	// value: PropTypes.string.isRequired,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default Stat;
