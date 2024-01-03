@@ -31,11 +31,8 @@ const HeadingGroup = styled.div`
 function StatusChange() {
 	const { order, isLoading } = useOrder();
 
-	const [confirmNew, setConfirmNew] = useState(false);
-	console.log(
-		"🚀 ~ file: StatusChange.jsx:29 ~ StatusChange ~ confirmNew:",
-		confirmNew
-	);
+	const [, setConfirmNew] = useState(false);
+
 	const [confirmCompleted, setConfirmCompleted] = useState(false);
 	const [confirmInprogress, setConfirmInprogress] = useState(false);
 	const [confirmShipped, setConfirmShipped] = useState(false);
@@ -58,7 +55,6 @@ function StatusChange() {
 
 	if (isLoading) return <Spinner />;
 	if (!order) return <Empty resource="order" />;
-	console.log("🚀 ~ file: StatusChange.jsx:55 ~ StatusChange ~ order:", order);
 
 	const { id: orderId, status, hasDelivery, isPaid } = order;
 

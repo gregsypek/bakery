@@ -31,11 +31,6 @@ function DashboardLayout() {
 		categories,
 	} = useRecentOrders();
 
-	// console.log(
-	// 	"🚀 ~ file: DashboardLayout.jsx:20 ~ DashboardLayout ~ ordersData:",
-	// 	ordersData
-	// );
-
 	if (isLoading || isLoadingData) return <Spinner />;
 	return (
 		<StyledDashboardLayout>

@@ -4,18 +4,16 @@ import { styled } from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import { useDarkMode } from "../../context/DarkModeContext";
 
-function Stats({ orders, inProgress, completed }) {
+const StyledBar = styled.div`
+	background-color: ${({ isDarkMode }) => (isDarkMode ? "#2B190B" : "#402510")};
+	display: flex;
+	align-items: center;
+	gap: 10%;
+	border-radius: var(--border-radius-xl);
+	padding: 0.5rem 5rem;
+`;
+function Stats({ orders = [], inProgress = [], completed = [] }) {
 	const { isDarkMode } = useDarkMode();
-
-	const StyledBar = styled.div`
-		background-color: ${isDarkMode ? "#2B190B" : "#402510"};
-		display: flex;
-		align-items: center;
-		gap: 10%;
-		border-radius: var(--border-radius-xl);
-		padding: 0.5rem 5rem;
-	`;
-
 	//1.
 	const numOrders = orders?.length;
 	//2.
@@ -26,7 +24,7 @@ function Stats({ orders, inProgress, completed }) {
 	const completedRate = completed?.length / orders?.length;
 
 	return (
-		<StyledBar>
+		<StyledBar $isDarkMode={isDarkMode}>
 			<Stat title="Orders" src={"/orders.png"} value={numOrders} />
 			<Stat title="Sales" src={"/sales.png"} value={formatCurrency(sales)} />
 			<Stat title="Progress state" src={"/stats.png"} value={inprogress} />
@@ -42,7 +40,7 @@ function Stats({ orders, inProgress, completed }) {
 export default Stats;
 
 const orderPropTypesShape = PropTypes.shape({
-	id: PropTypes.number.isRequired,
+	id: PropTypes.number,
 	status: PropTypes.string,
 	hasDelivery: PropTypes.oneOfType([
 		PropTypes.bool,
@@ -52,8 +50,8 @@ const orderPropTypesShape = PropTypes.shape({
 	created_at: PropTypes.string,
 	totalPrice: PropTypes.number,
 	clients: PropTypes.shape({
-		fullName: PropTypes.string.isRequired,
-		email: PropTypes.string.isRequired,
+		fullName: PropTypes.string,
+		email: PropTypes.string,
 	}),
 	orderItems: PropTypes.arrayOf(
 		PropTypes.shape({

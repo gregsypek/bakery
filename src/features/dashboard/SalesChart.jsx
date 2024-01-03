@@ -31,7 +31,7 @@ const StyledSalesChart = styled(DashboardBox)`
 // 	{ label: "Jan 10", totalSales: 580, extrasSales: 400 - 300 }
 // ];
 
-function SalesChart({ orders, numDays }) {
+function SalesChart({ orders = [], numDays }) {
 	const { isDarkMode } = useDarkMode();
 
 	//Return the array of dates within the specified time interval
@@ -114,7 +114,7 @@ function SalesChart({ orders, numDays }) {
 SalesChart.propTypes = {
 	orders: PropTypes.arrayOf(
 		PropTypes.shape({
-			id: PropTypes.number.isRequired,
+			id: PropTypes.number,
 			status: PropTypes.string,
 			hasDelivery: PropTypes.oneOfType([
 				PropTypes.bool,
@@ -124,8 +124,8 @@ SalesChart.propTypes = {
 			created_at: PropTypes.string,
 			totalPrice: PropTypes.number,
 			clients: PropTypes.shape({
-				fullName: PropTypes.string.isRequired,
-				email: PropTypes.string.isRequired,
+				fullName: PropTypes.string,
+				email: PropTypes.string,
 			}),
 			orderItems: PropTypes.arrayOf(
 				PropTypes.shape({

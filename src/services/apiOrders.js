@@ -192,8 +192,9 @@ export async function getOrderAfterDate(date) {
 			console.error(orderItemsError);
 			throw new Error("Order items could not be loaded");
 		}
-
-		order.category = orderItemsData[0]?.products?.category;
+		if (orderItemsData && orderItemsData.length > 0) {
+			order.category = orderItemsData[0]?.products?.category;
+		}
 	}
 
 	return ordersData;

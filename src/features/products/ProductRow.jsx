@@ -61,7 +61,6 @@ function ProductRow({ product }) {
 	} = product;
 
 	function handleDuplicate() {
-		console.log("DUPLICATE!!!!!!!!!");
 		createProduct({
 			name: `Copy of ${name}`,
 			regularPrice,
