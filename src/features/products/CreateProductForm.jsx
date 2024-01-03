@@ -3,11 +3,13 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import PropTypes from "prop-types";
 import { useCreateProduct } from "./useCreateProduct";
 import { useUpdateProduct } from "./useUpdateProduct";
+import Select from "../../ui/Select";
+import { productTagCategories } from "./productTagCategories";
 
 function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 	const { isCreating, createProduct } = useCreateProduct();
@@ -18,10 +20,19 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 	const { productId: editId, ...editValues } = productToEdit;
 	const isEditSession = Boolean(editId);
 
-	const { register, handleSubmit, reset, getValues, formState } = useForm({
-		defaultValues: isEditSession ? editValues : {},
-	});
+	const { register, handleSubmit, control, reset, getValues, formState } =
+		useForm({
+			defaultValues: isEditSession ? editValues : {},
+		});
 	const { errors } = formState;
+
+	const prepareOptionCategories = [
+		{ value: "", label: "Choose a category" },
+		...productTagCategories.map((cat) => ({
+			value: cat,
+			label: cat.charAt(0).toUpperCase() + cat.slice(1),
+		})),
+	];
 
 	function onSubmit(data) {
 		const image = typeof data.image === "string" ? data.image : data.image[0];
@@ -103,6 +114,23 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 							value <= getValues().regularPrice ||
 							"Discount should be less than regular price",
 					})}
+				/>
+			</FormRow>
+			<FormRow label="category" error={errors?.category?.message}>
+				{/* Controller from react-hook-form is used to integrate the Select component with the form. It provides a field prop that includes onChange, onBlur, and value */}
+				<Controller
+					name="category"
+					control={control}
+					rules={{ required: "Please select a category" }}
+					render={({ field }) => (
+						<Select
+							options={prepareOptionCategories}
+							$type="brown"
+							value={field.value}
+							onChange={(value) => field.onChange(value)}
+							disabled={isWorking}
+						/>
+					)}
 				/>
 			</FormRow>
 			<FormRow label="description" error={errors?.description?.message}>

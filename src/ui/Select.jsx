@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import PropTypes from "prop-types";
 
 const StyledSelect = styled.select`
@@ -13,13 +13,23 @@ const StyledSelect = styled.select`
 	background-color: var(--color-brand-100);
 	font-weight: 500;
 	box-shadow: var(--shadow-sm);
+
+	${(props) =>
+		props.$type === "brown" &&
+		css`
+			border: 2px solid var(--color-brand-800);
+			background-color: var(--color-brand-400);
+			border-radius: var(--border-radius-md);
+			color: var(--color-black-900);
+			font-weight: 400;
+		`}
 `;
 
 function Select({ options, value, onChange, $type, ...props }) {
 	return (
 		<StyledSelect value={value} onChange={onChange} $type={$type} {...props}>
-			{options.map((option) => (
-				<option value={option.value} key={option.value}>
+			{options.map((option, index) => (
+				<option value={option.value} key={option.value ?? index}>
 					{option.label}
 				</option>
 			))}
