@@ -22,12 +22,12 @@ const sizes = {
 
 const variations = {
 	primary: css`
-		color: var(--color-brand-100);
-		background-color: var(--color-brand-900);
+		color: var(--color-white-700);
+		background-color: var(--color-brown-700);
 		border: 2px solid var(--color-brand-900);
-
 		&:hover {
 			background-color: var(--color-black-900);
+			color: var(--color-brand-100);
 		}
 	`,
 	secondary: css`

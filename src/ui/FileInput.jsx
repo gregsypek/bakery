@@ -14,13 +14,13 @@ const FileInput = styled.input.attrs({ type: "file" })`
 		border-radius: var(--border-radius-sm);
 		border: none;
 		color: var(--color-brand-100);
-		background-color: var(--color-brand-900);
+		background-color: var(--color-black-600);
 
 		cursor: pointer;
 		transition: color 0.2s, background-color 0.2s;
 
 		&:hover {
-			background-color: var(--color-brand-800);
+			background-color: var(--color-black-700);
 		}
 	}
 `;

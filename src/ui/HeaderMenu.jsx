@@ -8,6 +8,7 @@ import DarkModeToggle from "./DarkModeToggle";
 const StyledHeaderMenu = styled.ul`
 	display: flex;
 	gap: 0.4rem;
+	place-items: center;
 `;
 
 function HeaderMenu() {
@@ -20,10 +21,14 @@ function HeaderMenu() {
 				</ButtonIcon>
 			</li>
 			<li>
-				<DarkModeToggle />
+				<ButtonIcon>
+					<DarkModeToggle />
+				</ButtonIcon>
 			</li>
 			<li>
-				<Logout />
+				<ButtonIcon>
+					<Logout />
+				</ButtonIcon>
 			</li>
 		</StyledHeaderMenu>
 	);

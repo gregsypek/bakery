@@ -48,10 +48,12 @@ const GlobalStyles = createGlobalStyle`
   --image-opacity: 100%;
   }
   &.dark-mode {
-    --color-brand-100: #2B190B;
-      --color-brand-200: #1d1109;
+    --color-brand-100: #110c09;
+    --color-brand-200: #1d1109;
     --color-black-800: #402510;
-    --color-brand-800: #402510;
+    --color-brand-800: #A6764F;
+    --color-brand-800: #2B190B;
+    --color-brand-900: #eee2d9;
     --color-black-900: #FEF7DB;
     --color-black-700: #eee2d9;
     --color-black-600: #e1a97e;
@@ -61,10 +63,9 @@ const GlobalStyles = createGlobalStyle`
     --color-green-700: #153c15;
     --color-blue-700: #143b42;
     --color-grey-300:#4e535b;
-    /* --color-white-700: #2B190B; */
+    --color-white-700: #FEF7DB; 
     --image-grayscale: 10%;//to be less bright on dark side
     --image-opacity: 90%;
-  //TODO: CHANGE MORE COLORS HERE 
 }
 
   --border-radius-tiny: 3px;

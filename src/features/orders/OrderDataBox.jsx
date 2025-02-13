@@ -35,7 +35,7 @@ const Box = styled.div`
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	border: 2px solid var(--color-black-800);
+	border: 2px solid var(--color-black-700);
 	/* border: 1.5px solid statusToTagName[status]; */
 	border-radius: var(--border-radius-md);
 

@@ -125,7 +125,7 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
 					render={({ field }) => (
 						<Select
 							options={prepareOptionCategories}
-							$type="brown"
+							// $type="brown"
 							value={field.value}
 							onChange={(value) => field.onChange(value)}
 							disabled={isWorking}

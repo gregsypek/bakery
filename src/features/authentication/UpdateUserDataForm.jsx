@@ -21,7 +21,6 @@ function UpdateUserDataForm() {
 	const [fullName, setFullName] = useState(currentFullName);
 	const [avatar, setAvatar] = useState(null);
 
-
 	function handleSubmit(e) {
 		e.preventDefault();
 		if (!fullName) return;
@@ -69,7 +68,7 @@ function UpdateUserDataForm() {
 			<FormRow>
 				<Button
 					type="reset"
-					variation="secondary"
+					// $variation="secondary"
 					disabled={isUpdating}
 					onClick={handleCancel}
 				>

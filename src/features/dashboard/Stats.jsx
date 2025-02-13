@@ -5,7 +5,7 @@ import { formatCurrency } from "../../utils/helpers";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 const StyledBar = styled.div`
-	background-color: ${({ isDarkMode }) => (isDarkMode ? "#2B190B" : "#402510")};
+	background-color: ${({ isDarkMode }) => (isDarkMode ? "#2B190B" : "#110c09")};
 	display: flex;
 	align-items: center;
 	gap: 10%;
